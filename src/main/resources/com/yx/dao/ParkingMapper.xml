@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yx.dao.ParkingMapper">
+
+        <!-- 通用查询映射结果 -->
+        <resultMap id="BaseResultMap" type="com.yx.pojo.Parking">
+                    <id column="id" property="id"/>
+                    <result column="numbers" property="numbers"/>
+                    <result column="status" property="status"/>
+                    <result column="owner_id" property="ownerId"/>
+                    <result column="remarks" property="remarks"/>
+        </resultMap>
+
+        <!-- 通用查询结果列 -->
+        <sql id="Base_Column_List">
+            id, numbers, status, owner_id, remarks
+        </sql>
+
+        <resultMap id="queryParkAllMap" type="com.yx.pojo.Parking" extends="BaseResultMap">
+            <association property="owner" javaType="com.yx.pojo.Owner">
+                <id column="id" property="id"></id>
+                <result property="username" column="username"></result>
+                <result property="tel" column="tel"></result>
+            </association>
+        </resultMap>
+
+        <select id="queryParkAll" parameterType="String" resultMap="queryParkAllMap">
+            SELECT parking.*,owner.username,owner.tel
+            FROM parking
+            LEFT JOIN OWNER ON owner.id=parking.owner_id
+            <!--车牌号查询-->
+            <where>
+                <if test="numbers!=null and numbers!=''">
+                    and numbers like '%${numbers}%'
+                </if>
+            </where>
+        </select>
+</mapper>
