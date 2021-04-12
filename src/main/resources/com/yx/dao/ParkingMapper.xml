@@ -35,4 +35,8 @@
                 </if>
             </where>
         </select>
+
+    <select id="queryParkAllByStatus" resultType="com.yx.pojo.Parking">
+        select * from parking where status=1 and owner_id is not null   <!--这表示车位已经有车主-->
+    </select>
 </mapper>

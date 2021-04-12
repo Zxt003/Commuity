@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import java.util.Date;
 import com.baomidou.mybatisplus.annotation.TableId;
 import java.io.Serializable;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -29,8 +31,10 @@ public class Carcharge implements Serializable {
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
+    @JsonFormat(locale="zh", timezone="GMT+8", pattern="yyyy-MM-dd")
     private Date payDate;
 
+    @JsonFormat(locale="zh", timezone="GMT+8", pattern="yyyy-MM-dd")
     private String endDate;
 
     private Double money;
@@ -46,5 +50,8 @@ public class Carcharge implements Serializable {
 
     private Integer parkId;
 
+    private Owner owner;
+
+    private Parking parking;
 
 }

@@ -4,7 +4,7 @@
     "href": "page/welcome-3.html?t=1"
   },
   "logoInfo": {
-    "title": "物业管理系统",
+    "title": "社区物业管理",
     "image": "images/favicon.ico",
     "href": ""
   },
@@ -78,13 +78,6 @@
               "icon": "fa fa-angle-double-down",
               "target": "_self"
             },
-
-            {
-              "title": "抄表管理",
-              "href": "page/base/record/RecordIndex.html",
-              "icon": "fa fa-edit",
-              "target": "_self"
-            },
             {
               "title": "管理员管理",
               "href": "page/base/admin/index.html",
@@ -101,7 +94,7 @@
           "child": [
             {
               "title": "报修统计分析",
-              "href": "page/tongji/index.html",
+              "href": "page/count/index.html",
               "icon": "fa fa-dot-circle-o",
               "target": "_self"
             },

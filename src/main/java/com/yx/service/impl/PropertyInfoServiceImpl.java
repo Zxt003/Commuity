@@ -28,20 +28,19 @@ public class PropertyInfoServiceImpl extends ServiceImpl<PropertyInfoMapper, Pro
     private PropertyInfoMapper propertyInfoDao;
 
     @Override
+    public void deleteInfoByHouIdAndTime(Integer houId, Date endTime) {
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String dateString = formatter.format(endTime);
+        dateString = dateString.substring(0,9);
+        propertyInfoDao.deleteByHouIdAndTime(houId,dateString);
+    }
+
+    @Override
     public  IPage<PropertyInfo> findListByPage(Integer page, Integer pageCount){
         IPage<PropertyInfo> wherePage = new Page<>(page, pageCount);
         PropertyInfo where = new PropertyInfo();
 
         return   baseMapper.selectPage(wherePage, Wrappers.query(where));
-    }
-
-    @Override
-    public void deleteInfoByHouIdAndTime(Integer houId, Date endTime) {
-
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        String dateString = formatter.format(endTime);
-        dateString=dateString.substring(0,9);
-        propertyInfoDao.deleteByHouIdAndTime(houId,dateString);
     }
 
     @Override

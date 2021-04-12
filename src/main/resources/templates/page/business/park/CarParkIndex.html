@@ -45,7 +45,7 @@
             table = layui.table,
             miniPage = layui.miniPage;
 
-        form.render('select');
+        form.render('select');//渲染下拉列表，加上一个样式
 
 
         table.render({
@@ -59,12 +59,11 @@
             }],
             cols: [[
                 {type: "checkbox", width: 50},
-                {field: 'id', width: 80, title: 'ID', sort: true},
+                //{field: 'id', width: 80, title: 'ID', sort: true},
                 {templet:'<div>{{d.parking.numbers}}</div>',width: 100, title: '车位号码'},
                 {templet:'<div>{{d.owner.username}}</div>',width: 100, title: '户主'},
-
-                {field: 'payDate', width: 100, title: '开始时间'},
-                {field: 'endDate', width: 80, title: '结束时间'},
+                {field: 'payDate', width: 120, title: '开始时间'},
+                {field: 'endDate', width: 120, title: '结束时间'},
                 {field: 'money', width: 100, title: '金额'},
                 {field: 'status', width: 100, title: '状态',
                  templet: function(res){

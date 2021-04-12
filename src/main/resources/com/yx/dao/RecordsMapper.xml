@@ -38,4 +38,9 @@
             </where>
             order by records.id desc
         </select>
+
+        <select id="queryByHouIdAndTypeId" parameterType="Integer" resultType="com.yx.pojo.Records">
+              select * from records where house_id=#{houId} and type_id=#{typeId} order by id desc
+              limit 1
+        </select>
 </mapper>

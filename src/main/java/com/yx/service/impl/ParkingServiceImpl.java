@@ -36,6 +36,11 @@ public class ParkingServiceImpl extends ServiceImpl<ParkingMapper, Parking> impl
     }
 
     @Override
+    public List<Parking> queryParkAllByStatus() {
+        return parkingDao.queryParkAllByStatus();
+    }
+
+    @Override
     public  IPage<Parking> findListByPage(Integer page, Integer pageCount){
         IPage<Parking> wherePage = new Page<>(page, pageCount);
         Parking where = new Parking();

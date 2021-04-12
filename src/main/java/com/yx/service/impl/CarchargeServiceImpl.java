@@ -1,13 +1,18 @@
 package com.yx.service.impl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.yx.pojo.Carcharge;
 import com.yx.dao.CarchargeMapper;
 import com.yx.service.ICarchargeService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+
+import java.util.List;
 
 /**
  * <p>
@@ -19,6 +24,16 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
  */
 @Service
 public class CarchargeServiceImpl extends ServiceImpl<CarchargeMapper, Carcharge> implements ICarchargeService {
+
+    @Autowired
+    private CarchargeMapper carchargeDao;
+
+    @Override
+    public PageInfo<Carcharge> queryCarChargeAll(Integer pageNum, Integer limit, Carcharge carcharge) {
+        PageHelper.startPage(pageNum,limit);
+        List<Carcharge> list = carchargeDao.queryCarchargeAll(carcharge);
+        return new PageInfo<>(list);
+    }
 
     @Override
     public  IPage<Carcharge> findListByPage(Integer page, Integer pageCount){

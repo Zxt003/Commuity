@@ -51,9 +51,9 @@
                 {field: 'status', width: 80, title: '状态',
                  templet:function(res){
                     if(res.status=='1'){
-                        return '<span class="layui-bg-green">入住</span>';
+                        return '<span class="layui-badge layui-bg-green">入住</span>';
                     }else{
-                        return '<span class="layui-bg-orange">未入住</span>';
+                        return '<span class="layui-badge layui-bg-orange">未入住</span>';
                     }
                  }},
                 {title: '操作', minWidth: 150, toolbar: '#currentTableBar', align: "center"}

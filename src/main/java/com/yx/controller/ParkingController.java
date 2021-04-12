@@ -49,6 +49,12 @@ public class ParkingController {
     @ApiOperation(value = "新增")
     @PostMapping("/add")
     public R add(@RequestBody Parking parking){
+        //车位有业主了，就代表已经使用了
+        if (parking.getOwnerId()!=null){
+            parking.setStatus(1);//表示已经使用
+        }else{
+            parking.setStatus(0);
+        }
         int num = parkingService.add(parking);
         if (num > 0){
             return R.ok();

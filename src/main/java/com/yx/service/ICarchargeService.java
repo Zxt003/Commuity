@@ -1,8 +1,10 @@
 package com.yx.service;
 
+import com.github.pagehelper.PageInfo;
 import com.yx.pojo.Carcharge;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import io.swagger.models.auth.In;
 
 /**
  * <p>
@@ -13,6 +15,11 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
  * @since 2021-04-09
  */
 public interface ICarchargeService extends IService<Carcharge> {
+
+    /**
+     * 查询所有车费记录
+     */
+    PageInfo<Carcharge> queryCarChargeAll(Integer pageNum, Integer limit,Carcharge carcharge);
 
     /**
      * 查询分页数据

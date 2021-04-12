@@ -1,7 +1,13 @@
 package com.yx.controller;
 
+import com.github.pagehelper.PageInfo;
+import com.yx.pojo.Parking;
+import com.yx.service.IParkingService;
+import com.yx.util.JsonObject;
+import com.yx.util.R;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import com.yx.service.ICarchargeService;
 import com.yx.pojo.Carcharge;
@@ -13,6 +19,9 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 
 import javax.annotation.Resource;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * <p>
@@ -32,23 +41,60 @@ public class CarchargeController {
     @Resource
     private ICarchargeService carchargeService;
 
+    @Autowired
+    private IParkingService parkingService;
+
+    @RequestMapping("/queryCarchargeAll")
+    public JsonObject queryCarchargeAll(@RequestParam(defaultValue = "1") Integer pageNum, @RequestParam(defaultValue = "15") Integer limit,Carcharge carcharge,String numbers){
+        if (numbers != null){
+            Parking parking = new Parking();
+            parking.setNumbers(numbers);
+            carcharge.setParking(parking);
+        }
+        PageInfo<Carcharge> pageInfo = carchargeService.queryCarChargeAll(pageNum, limit, carcharge);
+        return new JsonObject(0,"ok",pageInfo.getTotal(),pageInfo.getList());
+    }
+
 
     @ApiOperation(value = "新增")
-    @PostMapping()
-    public int add(@RequestBody Carcharge carcharge){
-        return carchargeService.add(carcharge);
+    @RequestMapping("/initData")
+    public R initData(@RequestBody Carcharge carcharge){
+        /**
+         * 遍历所有的车位信息（这是为了给所有车一起收费）
+         */
+        List<Parking> parkings = parkingService.queryParkAllByStatus();//获取到所有正在使用的车位
+        for (Parking parking : parkings){
+            carcharge.setStatus(0);//初始化后的车肯定是未使用的
+            carcharge.setOwnerId(parking.getOwnerId());
+            carcharge.setType("停车费");
+            carcharge.setParkId(parking.getId());
+            carchargeService.add(carcharge);
+        }
+        return R.ok();
     }
 
     @ApiOperation(value = "删除")
-    @DeleteMapping("{id}")
-    public int delete(@PathVariable("id") Long id){
-        return carchargeService.delete(id);
+    @RequestMapping("/deleteByIds")
+    public R delete(String ids){
+        List<String> list = Arrays.asList(ids.split(","));
+        for (String id : list){
+            carchargeService.delete(Long.parseLong(id));
+        }
+        return R.ok();
     }
 
     @ApiOperation(value = "更新")
-    @PutMapping()
-    public int update(@RequestBody Carcharge carcharge){
-        return carchargeService.updateData(carcharge);
+    @RequestMapping("/update")
+    public R update(Integer id){
+        Carcharge carcharge = new Carcharge();
+        carcharge.setId(id);
+        carcharge.setStatus(1);//已经缴费
+        int num = carchargeService.updateData(carcharge);
+        if (num > 0){
+            return R.ok();
+        }else {
+            return R.fail("修改失败");
+        }
     }
 
     @ApiOperation(value = "查询分页数据")

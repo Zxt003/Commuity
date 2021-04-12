@@ -5,14 +5,14 @@
             <label class="layui-form-label required">车位编号</label>
             <div class="layui-input-block">
                 <input type="text" name="numbers" lay-verify="required" lay-reqtext="车位编号不能为空"
-                       placeholder="请输入车位编号" value="" class="layui-input">
+                       placeholder="请输入车位编号" autocomplete="off" class="layui-input">
             </div>
         </div>
 
         <div class="layui-form-item">
-            <label class="layui-form-label required">关联户主</label>
+            <label class="layui-form-label">关联户主</label>
             <div class="layui-input-block">
-                <select name="ownerId" lay-verify="required"  id="typeId" lay-search="">
+                <select name="ownerId" id="typeId" lay-search="">
                     <option value="">请关联户主</option>
                 </select>
             </div>

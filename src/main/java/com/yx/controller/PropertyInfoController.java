@@ -1,5 +1,6 @@
 package com.yx.controller;
 
+import com.yx.util.R;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +14,9 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 
 import javax.annotation.Resource;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * <p>
@@ -40,9 +44,14 @@ public class PropertyInfoController {
     }
 
     @ApiOperation(value = "删除")
-    @DeleteMapping("{id}")
-    public int delete(@PathVariable("id") Long id){
-        return propertyInfoService.delete(id);
+    @RequestMapping("/deleteByIds")
+    public R delete(String ids){
+        List<String> list= Arrays.asList(ids.split(","));
+        for(String id:list){
+            Long idLong=new Long(id);
+            propertyInfoService.delete(idLong);
+        }
+        return R.ok();
     }
 
     @ApiOperation(value = "更新")

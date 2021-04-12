@@ -5,6 +5,8 @@ import com.yx.pojo.Parking;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 
+import java.util.List;
+
 /**
  * <p>
  *  服务类
@@ -21,6 +23,7 @@ public interface IParkingService extends IService<Parking> {
      */
     PageInfo<Parking> queryParkAll(Integer pageNum,Integer limit,String numbers);
 
+    List<Parking> queryParkAllByStatus();
     /**
      * 查询分页数据
      *

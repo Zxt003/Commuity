@@ -48,7 +48,7 @@
                 {field: 'numbers', width: 100, title: '车位号'},
                 {templet:'<div>{{d.owner.username}}</div>',width: 120, title: '业主姓名'},
                 {templet:'<div>{{d.owner.tel}}</div>',width: 120, title: '业主电话'},
-                {field: 'status', width: 80, title: '状态',
+                {field: 'status', width: 80, title: '车位状态',width: 120,
                     templet:function(res){
                         if(res.status=='1'){
                             return '<span class="layui-bg-green">使用</span>';
