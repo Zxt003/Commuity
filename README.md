@@ -26,6 +26,3 @@
 
 ### 4、车位管理
 ![车位管理](https://images.gitee.com/uploads/images/2021/0411/222605_21cf28cd_8169242.png "车位管理.png")
-
-### 5、抄表管理
-![抄表管理](https://images.gitee.com/uploads/images/2021/0411/222642_c67f95da_8169242.png "抄表管理.png")
