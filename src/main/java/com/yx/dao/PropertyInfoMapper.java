@@ -5,6 +5,8 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 /**
  * <p>
  *  Mapper 接口
@@ -20,4 +22,5 @@ public interface PropertyInfoMapper extends BaseMapper<PropertyInfo> {
      */
     void deleteByHouIdAndTime( @Param("houId") Integer houId, @Param("endDate") String onTime);
 
+    List<PropertyInfo> queryListAll();
 }

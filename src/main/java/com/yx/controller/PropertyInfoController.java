@@ -1,5 +1,8 @@
 package com.yx.controller;
 
+import com.github.pagehelper.PageInfo;
+import com.yx.pojo.Parking;
+import com.yx.util.JsonObject;
 import com.yx.util.R;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -28,13 +31,21 @@ import java.util.List;
  */
 @Api(tags = {""})
 @RestController
-@RequestMapping("//property-info")
+@RequestMapping("/propertyinfo")
 public class PropertyInfoController {
 
     private Logger log = LoggerFactory.getLogger(getClass());
 
     @Resource
     private IPropertyInfoService propertyInfoService;
+
+    @RequestMapping("/queryPropertyAll")
+    public JsonObject queryPropertyAll(@RequestParam(defaultValue = "1")Integer pageNum,
+                                   @RequestParam(defaultValue = "15")Integer limit,
+                                   PropertyInfo propertyInfo){
+        PageInfo<PropertyInfo> pageInfo = propertyInfoService.queryPropertyInfoAll(pageNum,limit,propertyInfo);
+        return new JsonObject(0,"ok",pageInfo.getTotal(),pageInfo.getList());
+    }
 
 
     @ApiOperation(value = "新增")

@@ -1,13 +1,18 @@
 package com.yx.service.impl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.yx.pojo.Userinfo;
 import com.yx.dao.UserinfoMapper;
 import com.yx.service.IUserinfoService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+
+import java.util.List;
 
 /**
  * <p>
@@ -19,6 +24,16 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
  */
 @Service
 public class UserinfoServiceImpl extends ServiceImpl<UserinfoMapper, Userinfo> implements IUserinfoService {
+
+    @Autowired
+    private UserinfoMapper userinfoDao;
+
+    @Override
+    public PageInfo<Userinfo> queryUserinfoAll(Integer pageNum, Integer limit, Userinfo userinfo) {
+        PageHelper.startPage(pageNum,limit);
+        List<Userinfo> list = userinfoDao.queryUserinfoAll(userinfo);
+        return new PageInfo<>(list);
+    }
 
     @Override
     public  IPage<Userinfo> findListByPage(Integer page, Integer pageCount){
@@ -46,5 +61,10 @@ public class UserinfoServiceImpl extends ServiceImpl<UserinfoMapper, Userinfo> i
     @Override
     public Userinfo findById(Long id){
         return  baseMapper.selectById(id);
+    }
+
+    @Override
+    public Userinfo queryUserByNameAndPwd(Userinfo userinfo) {
+        return userinfoDao.queryUserByNameAndPwd(userinfo);
     }
 }

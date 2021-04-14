@@ -19,4 +19,30 @@
             id, com_id, com_date, handle_date, owner_id, status, clr, remarks
         </sql>
 
+    <resultMap id="queryComplaintAllMap" type="com.yx.pojo.Complaint" extends="BaseResultMap">
+        <association property="owner" javaType="com.yx.pojo.Owner">
+            <id column="id" property="id"></id>
+            <result column="username" property="username"></result>
+        </association>
+        <association property="type" javaType="com.yx.pojo.ComplaintType">
+            <id column="id" property="id"></id>
+            <result column="name" property="name"></result>
+        </association>
+    </resultMap>
+    
+    <select id="queryComplaintAll" parameterType="com.yx.pojo.Complaint" resultMap="queryComplaintAllMap">
+        SELECT com.*,owner.username,type.name
+        FROM complaint com
+        LEFT JOIN complaint_type type ON type.id=com.com_id
+        LEFT JOIN owner ON owner.id =com.owner_id
+        <where>
+            <if test="comId!=null">
+                and com_id=#{comId}
+            </if>
+            <if test="status!=null">
+                and com.status=#{status}
+            </if>
+        </where>
+    </select>
+
 </mapper>

@@ -1,8 +1,11 @@
 package com.yx.service;
 
+import com.github.pagehelper.PageInfo;
 import com.yx.pojo.Userinfo;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+
+import java.util.List;
 
 /**
  * <p>
@@ -14,6 +17,8 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
  */
 public interface IUserinfoService extends IService<Userinfo> {
 
+
+    PageInfo<Userinfo> queryUserinfoAll(Integer pageNum, Integer limit, Userinfo userinfo);
     /**
      * 查询分页数据
      *
@@ -54,4 +59,6 @@ public interface IUserinfoService extends IService<Userinfo> {
      * @return Userinfo
      */
     Userinfo findById(Long id);
+
+    Userinfo queryUserByNameAndPwd(Userinfo userinfo);
 }

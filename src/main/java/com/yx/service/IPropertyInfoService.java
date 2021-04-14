@@ -1,5 +1,6 @@
 package com.yx.service;
 
+import com.github.pagehelper.PageInfo;
 import com.yx.pojo.PropertyInfo;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -18,6 +19,10 @@ import java.util.Date;
 public interface IPropertyInfoService extends IService<PropertyInfo> {
 
 
+    /**
+     * 查询所有数据信息
+     */
+    PageInfo<PropertyInfo> queryPropertyInfoAll(Integer pageNum,Integer limit,PropertyInfo propertyInfo);
 
     /**
      * 查询分页数据

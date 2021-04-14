@@ -61,12 +61,12 @@
             }],
             cols: [[
                 {type: "checkbox", width: 50},
-                {field: 'id', width: 80, title: 'ID', sort: true},
+                //{field: 'id', width: 80, title: 'ID', sort: true},
                 {templet:'<div>{{d.house.numbers}}</div>',width: 100, title: '房间号'},
                 {templet:'<div>{{d.owner.username}}</div>',width: 100, title: '房东'},
                 {templet:'<div>{{d.type.name}}</div>',width: 100, title: '费用类型'},
-                {field: 'startDate', width: 100, title: '开始时间'},
-                {field: 'endDate', width: 80, title: '结束时间'},
+                {field: 'startDate', width: 120, title: '开始时间'},
+                {field: 'endDate', width: 120, title: '结束时间'},
                 {field: 'money', width: 100, title: '金额'},
                 {field: 'status', width: 100, title: '状态',
                  templet: function(res){

@@ -44,5 +44,9 @@ public class Complaint implements Serializable {
 
     private String remarks;
 
+    private Owner owner;
+
+    private ComplaintType type;
+
 
 }

@@ -1,13 +1,17 @@
 package com.yx.service.impl;
 
+import com.yx.dao.RepairMapper;
 import com.yx.pojo.Repairtype;
 import com.yx.dao.RepairtypeMapper;
 import com.yx.service.IRepairtypeService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+
+import java.util.List;
 
 /**
  * <p>
@@ -19,6 +23,14 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
  */
 @Service
 public class RepairtypeServiceImpl extends ServiceImpl<RepairtypeMapper, Repairtype> implements IRepairtypeService {
+
+    @Autowired
+    private RepairMapper repairDao;
+
+    @Override
+    public List<Repairtype> findList() {
+        return baseMapper.selectList(null);
+    }
 
     @Override
     public  IPage<Repairtype> findListByPage(Integer page, Integer pageCount){

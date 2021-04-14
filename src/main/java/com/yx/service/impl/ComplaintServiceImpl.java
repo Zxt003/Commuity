@@ -1,13 +1,19 @@
 package com.yx.service.impl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.yx.pojo.Complaint;
 import com.yx.dao.ComplaintMapper;
+import com.yx.pojo.ComplaintType;
 import com.yx.service.IComplaintService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+
+import java.util.List;
 
 /**
  * <p>
@@ -19,6 +25,15 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
  */
 @Service
 public class ComplaintServiceImpl extends ServiceImpl<ComplaintMapper, Complaint> implements IComplaintService {
+
+    @Autowired
+    private ComplaintMapper complaintDao;
+    @Override
+    public PageInfo<Complaint> queryComplaintAll(Integer pageNum, Integer limit, Complaint complaint) {
+        PageHelper.startPage(pageNum,limit);
+        List<Complaint> list = complaintDao.queryComplaintAll(complaint);
+        return new PageInfo<>(list);
+    }
 
     @Override
     public  IPage<Complaint> findListByPage(Integer page, Integer pageCount){

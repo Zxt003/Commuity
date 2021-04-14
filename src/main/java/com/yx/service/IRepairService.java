@@ -1,8 +1,12 @@
 package com.yx.service;
 
+import com.github.pagehelper.PageInfo;
+import com.yx.pojo.Count;
 import com.yx.pojo.Repair;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+
+import java.util.List;
 
 /**
  * <p>
@@ -14,6 +18,8 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
  */
 public interface IRepairService extends IService<Repair> {
 
+
+    PageInfo<Repair> queryRepairAll(Integer pageNum, Integer limit, Repair repair);
     /**
      * 查询分页数据
      *
@@ -54,4 +60,7 @@ public interface IRepairService extends IService<Repair> {
      * @return Repair
      */
     Repair findById(Long id);
+
+    //统计
+    List<Count> queryCount();
 }

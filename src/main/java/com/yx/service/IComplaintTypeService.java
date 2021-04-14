@@ -4,6 +4,8 @@ import com.yx.pojo.ComplaintType;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 
+import java.util.List;
+
 /**
  * <p>
  *  服务类
@@ -13,6 +15,8 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
  * @since 2021-04-09
  */
 public interface IComplaintTypeService extends IService<ComplaintType> {
+
+    List<ComplaintType> queryType();
 
     /**
      * 查询分页数据

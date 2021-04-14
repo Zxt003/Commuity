@@ -6,14 +6,12 @@
 </style>
 <div class="layuimini-container layuimini-page-anim">
 
+        <!--报表---线状图-->
         <div class="layui-row layui-col-space15">
             <div class="layui-col-xs12 layui-col-md12">
                 <div id="echarts-records" style="background-color:#ffffff;min-height:400px;padding: 10px"></div>
             </div>
-
         </div>
-
-
     </div>
 </div>
 <script>
@@ -23,37 +21,36 @@
             echarts = layui.echarts;
 
         /**
-         * 报表功能
+         * 报表功能（线状图）
          */
 
         $.ajax({
-            url:"repair/queryTongJi",
+            url:"repair/queryCount",
             type:"POST",
             dataType:"json",
             success:function(data){
 
-                console.log(data);
-                // debugger
+                //console.log(data);
                 var str="";
                 for (var p in  data){
                     str=str+data[p].name+",";
                 }
                 str=str.substring(0,str.length-1);
-                var strResult=str.split(",");
+                var strResult=str.split(",");//横坐标类型
 
                 var str2="";
                 for (var p in  data){
                     str2=str2+data[p].counts+",";
                 }
                 str2=str2.substring(0,str2.length-1);
-                var strResult2=str2.split(",");
+                var strResult2=str2.split(",");//纵坐标数据
 
 
                 var echartsRecords = echarts.init(document.getElementById('echarts-records'), 'walden');
 
                 var optionRecords = {
                     title: {
-                        text: '保修维护-报表图'
+                        text: '报修维护-报表图'
                     },
                     tooltip: {
                         trigger: 'axis',
@@ -102,20 +99,5 @@
 
             }
         })
-
-
-
-
-
-
-
-
-
-
-        // // echarts 窗口缩放自适应
-        // window.onresize = function () {
-        //     echartsRecords.resize();
-        // }
-
     });
 </script>

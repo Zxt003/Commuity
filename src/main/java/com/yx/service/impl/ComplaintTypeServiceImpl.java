@@ -9,6 +9,8 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 
+import java.util.List;
+
 /**
  * <p>
  *  服务实现类
@@ -19,6 +21,11 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
  */
 @Service
 public class ComplaintTypeServiceImpl extends ServiceImpl<ComplaintTypeMapper, ComplaintType> implements IComplaintTypeService {
+
+    @Override
+    public List<ComplaintType> queryType() {
+        return baseMapper.selectList(null);
+    }
 
     @Override
     public  IPage<ComplaintType> findListByPage(Integer page, Integer pageCount){

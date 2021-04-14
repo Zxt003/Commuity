@@ -14,6 +14,8 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import javax.annotation.Resource;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 /**
  * <p>
  *  前端控制器
@@ -24,7 +26,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @Api(tags = {""})
 @RestController
-@RequestMapping("/complaint-type")
+@RequestMapping("/complainttype")
 public class ComplaintTypeController {
 
     private Logger log = LoggerFactory.getLogger(getClass());
@@ -32,6 +34,10 @@ public class ComplaintTypeController {
     @Resource
     private IComplaintTypeService complaintTypeService;
 
+    @RequestMapping("/queryAll")
+    public List<ComplaintType> queryAll(){
+        return complaintTypeService.queryType();
+    }
 
     @ApiOperation(value = "新增")
     @PostMapping()

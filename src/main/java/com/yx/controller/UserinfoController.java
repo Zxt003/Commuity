@@ -1,5 +1,8 @@
 package com.yx.controller;
 
+import com.github.pagehelper.PageInfo;
+import com.yx.util.JsonObject;
+import com.yx.util.R;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +16,9 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 
 import javax.annotation.Resource;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * <p>
@@ -32,23 +38,49 @@ public class UserinfoController {
     @Resource
     private IUserinfoService userinfoService;
 
+    /**
+     * 查找所有管理信息
+     * @param userinfo
+     * @return
+     */
+    @RequestMapping("/queryUserInfoAll")
+    public JsonObject queryUserInfoAll(@RequestParam(defaultValue = "1") Integer pageNum,
+                                       @RequestParam(defaultValue = "15") Integer limit,
+                                       Userinfo userinfo){
+        PageInfo<Userinfo> pageInfo= userinfoService.queryUserinfoAll(pageNum,limit,userinfo);
+        return new JsonObject(0,"ok",pageInfo.getTotal(),pageInfo.getList());
+    }
 
     @ApiOperation(value = "新增")
-    @PostMapping()
-    public int add(@RequestBody Userinfo userinfo){
-        return userinfoService.add(userinfo);
+    @RequestMapping("/add")
+    public R add(@RequestBody Userinfo userinfo){
+        userinfoService.add(userinfo);
+        return R.ok();
     }
 
     @ApiOperation(value = "删除")
-    @DeleteMapping("{id}")
-    public int delete(@PathVariable("id") Long id){
-        return userinfoService.delete(id);
+    @RequestMapping("/deleteByIds")
+    public R delete(String  ids){
+        List<String> list= Arrays.asList(ids.split(","));
+        //遍历遍历进行删除
+        for(String id:list){
+            userinfoService.delete(Long.parseLong(id));
+        }
+        return R.ok();
     }
 
     @ApiOperation(value = "更新")
-    @PutMapping()
-    public int update(@RequestBody Userinfo userinfo){
-        return userinfoService.updateData(userinfo);
+    @RequestMapping("/update")
+    public R update(String oldPwd,String newPwd,Integer id){
+        //根据id获取当前的数据记录
+        Userinfo user=userinfoService.findById(new Long(id));
+        if(oldPwd.equals(user.getPassword())){//输入的老密码和原密码一致
+            user.setPassword(newPwd);
+            userinfoService.updateData(user);
+            return R.ok();
+        }else{
+            return R.fail("两次密码不一致");
+        }
     }
 
     @ApiOperation(value = "查询分页数据")

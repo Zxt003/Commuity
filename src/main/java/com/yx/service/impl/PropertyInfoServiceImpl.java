@@ -1,5 +1,8 @@
 package com.yx.service.impl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import com.yx.pojo.Carcharge;
 import com.yx.pojo.PropertyInfo;
 import com.yx.dao.PropertyInfoMapper;
 import com.yx.service.IPropertyInfoService;
@@ -12,6 +15,7 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 /**
  * <p>
@@ -33,6 +37,13 @@ public class PropertyInfoServiceImpl extends ServiceImpl<PropertyInfoMapper, Pro
         String dateString = formatter.format(endTime);
         dateString = dateString.substring(0,9);
         propertyInfoDao.deleteByHouIdAndTime(houId,dateString);
+    }
+
+    @Override
+    public PageInfo<PropertyInfo> queryPropertyInfoAll(Integer pageNum, Integer limit, PropertyInfo propertyInfo) {
+        PageHelper.startPage(pageNum,limit);
+        List<PropertyInfo> list = propertyInfoDao.queryListAll();
+        return new PageInfo<>(list);
     }
 
     @Override

@@ -15,5 +15,20 @@
         <sql id="Base_Column_List">
             id, username, password, type, remarks
         </sql>
+    <select id="queryUserinfoAll" parameterType="com.yx.pojo.Userinfo" resultType="com.yx.pojo.Userinfo">
+        select * from userinfo
+        <where>
+            <if test="type!=null">
+                and  type=#{type}
+            </if>
+        </where>
+        order by id desc
+    </select>
+
+    <!--登录操作，匹配账号密码和用户类型-->
+    <select id="queryUserByNameAndPwd" resultType="com.yx.pojo.Userinfo" parameterType="com.yx.pojo.Userinfo">
+        select * from userinfo u  where username=#{username} and u.password=#{password}
+        and  type=#{type}
+    </select>
 
 </mapper>

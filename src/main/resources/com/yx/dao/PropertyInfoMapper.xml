@@ -22,4 +22,38 @@
     <delete id="deleteByHouIdAndTime" >
        delete from property_info where house_id=#{houId} and end_date  like '%${endDate}%'
     </delete>
+
+    <resultMap id="queryListAllMap" type="com.yx.pojo.PropertyInfo" extends="BaseResultMap">
+        <association property="owner" javaType="com.yx.pojo.Owner">
+            <id column="id" property="id"></id>
+            <result property="username" column="username"></result>
+            <result property="tel" column="tel"></result>
+        </association>
+        <association property="house" javaType="com.yx.pojo.House">
+            <id column="id" property="id"></id>
+            <result property="numbers" column="numbers"></result>
+        </association>
+        <association property="type" javaType="com.yx.pojo.PropertyType">
+            <id column="id" property="id"></id>
+            <result property="name" column="name"></result>
+        </association>
+    </resultMap>
+
+    <select id="queryListAll" parameterType="com.yx.pojo.PropertyInfo" resultMap="queryListAllMap">
+        SELECT info.*,owner.username,house.numbers,type.name
+        FROM property_info info
+        LEFT JOIN house ON house.id = info.house_id
+        LEFT JOIN OWNER ON owner.house_id = house.id
+        LEFT JOIN property_type type ON type.id = info.type_id
+        <where>
+            <if test="house!=null">
+                <if test="house.numbers!=null">
+                    and house.numbers like '%${house.numbers}%'
+                </if>
+            </if>
+            <if test="status!=null and status!=''">
+                and info.status=#{status}
+            </if>
+        </where>
+    </select>
 </mapper>

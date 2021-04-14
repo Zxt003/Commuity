@@ -1,8 +1,11 @@
 package com.yx.service;
 
+import com.github.pagehelper.PageInfo;
 import com.yx.pojo.Complaint;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+
+import java.util.List;
 
 /**
  * <p>
@@ -13,6 +16,8 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
  * @since 2021-04-09
  */
 public interface IComplaintService extends IService<Complaint> {
+
+    PageInfo<Complaint> queryComplaintAll(Integer pageNum, Integer limit, Complaint complaint);
 
     /**
      * 查询分页数据

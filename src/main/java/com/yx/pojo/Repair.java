@@ -43,5 +43,8 @@ public class Repair implements Serializable {
 
     private String remarks;
 
+    private Owner owner;
+
+    private Repairtype type;
 
 }

@@ -1,7 +1,14 @@
 package com.yx.controller;
 
+import com.github.pagehelper.PageInfo;
+import com.yx.pojo.Count;
+import com.yx.pojo.Repairtype;
+import com.yx.service.IRepairtypeService;
+import com.yx.util.JsonObject;
+import com.yx.util.R;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import com.yx.service.IRepairService;
 import com.yx.pojo.Repair;
@@ -13,6 +20,9 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 
 import javax.annotation.Resource;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * <p>
@@ -32,6 +42,21 @@ public class RepairController {
     @Resource
     private IRepairService repairService;
 
+    @Resource
+    private IRepairtypeService repairtypeService;
+
+
+    @RequestMapping("/queryRepairAll")
+    public JsonObject queryComplaintAll(@RequestParam(defaultValue = "1") Integer pageNum, @RequestParam(defaultValue = "15") Integer limit, Repair repair){
+        PageInfo<Repair> pageInfo = repairService.queryRepairAll(pageNum, limit, repair);
+        return new JsonObject(0,"ok",pageInfo.getTotal(),pageInfo.getList());
+    }
+
+
+    @RequestMapping("/queryAll")
+    public List<Repairtype> queryAll(){
+        return repairtypeService.findList();
+    }
 
     @ApiOperation(value = "新增")
     @PostMapping()
@@ -40,9 +65,13 @@ public class RepairController {
     }
 
     @ApiOperation(value = "删除")
-    @DeleteMapping("{id}")
-    public int delete(@PathVariable("id") Long id){
-        return repairService.delete(id);
+    @RequestMapping("/deleteByIds")
+    public R deleteByIds(String ids){
+        List<String> list = Arrays.asList(ids.split(","));
+        for (String id : list){
+            repairService.delete(Long.parseLong(id));
+        }
+        return R.ok();
     }
 
     @ApiOperation(value = "更新")
@@ -68,4 +97,12 @@ public class RepairController {
         return repairService.findById(id);
     }
 
+
+    /**
+     * 统计分析
+     */
+    @RequestMapping("/queryCount")
+    public List<Count> queryCount(){
+        return repairService.queryCount();
+    }
 }

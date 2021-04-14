@@ -4,6 +4,8 @@ import com.yx.pojo.Repairtype;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 
+import java.util.List;
+
 /**
  * <p>
  *  服务类
@@ -14,6 +16,8 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
  */
 public interface IRepairtypeService extends IService<Repairtype> {
 
+    //查询所有的类型记录
+    List<Repairtype> findList();
     /**
      * 查询分页数据
      *
