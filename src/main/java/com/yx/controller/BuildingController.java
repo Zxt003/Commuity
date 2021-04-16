@@ -1,23 +1,20 @@
 package com.yx.controller;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.github.pagehelper.PageInfo;
+import com.yx.model.Building;
+import com.yx.service.IBuildingService;
 import com.yx.util.JsonObject;
 import com.yx.util.R;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
-import org.apache.ibatis.annotations.Param;
-import org.springframework.web.bind.annotation.*;
-import com.yx.service.IBuildingService;
-import com.yx.pojo.Building;
-import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import com.baomidou.mybatisplus.core.metadata.IPage;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import org.springframework.web.bind.annotation.RestController;
-
 import java.util.Arrays;
 import java.util.List;
 
@@ -26,8 +23,8 @@ import java.util.List;
  *  前端控制器
  * </p>
  *
- * @author yx
- * @since 2021-04-09
+ * @author kappy
+ * @since 2020-11-08
  */
 @Api(tags = {""})
 @RestController
@@ -39,49 +36,46 @@ public class BuildingController {
     @Resource
     private IBuildingService buildingService;
 
-    /**
-     * 查询所有楼宇记录
-     */
+
     @RequestMapping("/queryBuildAll")
-    public JsonObject queryBuildAll(@RequestParam(defaultValue = "1") Integer pageNum,
+    public JsonObject queryBuildAll(@RequestParam(defaultValue = "1") Integer page,
                                     @RequestParam(defaultValue = "15") Integer limit,
                                     String numbers){
-        JsonObject jsonObject = new JsonObject();
-        PageInfo<Building> buildingPageInfo = buildingService.queryBuildAll(pageNum, limit, numbers);
-        jsonObject.setCode(0);
-        jsonObject.setMsg("ok");
-        jsonObject.setCount(buildingPageInfo.getTotal());
-        jsonObject.setData(buildingPageInfo.getList());
-        return jsonObject;
+        JsonObject object=new JsonObject();
+        PageInfo<Building> pageInfo= buildingService.findBuildAll(page,limit,numbers);
+        object.setCode(0);
+        object.setMsg("ok");
+        object.setCount(pageInfo.getTotal());
+        object.setData(pageInfo.getList());
+        return object;
     }
 
-    /**
-     * 下拉框，查询所有楼宇信息
-     * @return
-     */
     @RequestMapping("/queryBuild")
     public List<Building> queryBuild(){
-        PageInfo<Building> pageInfo = buildingService.queryBuildAll(1, 100, null);
+        PageInfo<Building> pageInfo= buildingService.findBuildAll(1,100,null);
         return pageInfo.getList();
     }
 
+
     @ApiOperation(value = "新增")
-    @PostMapping("/add")
+    @RequestMapping("/add")
     public R add(@RequestBody Building building){
-        int num = buildingService.add(building);
-        if (num > 0){
+        int num= buildingService.add(building);
+        if(num>0){
             return R.ok();
         }else{
             return R.fail("添加失败");
         }
+
     }
 
     @ApiOperation(value = "删除")
     @RequestMapping("/deleteByIds")
-    public R delete(String ids){
-        List<String> list = Arrays.asList(ids.split(","));
-        for (String id : list) {
-            buildingService.delete(Long.parseLong(id));//这里必须接收long类型，所以转成long
+    public R delete(String  ids){
+        List<String> list= Arrays.asList(ids.split(","));
+        //遍历遍历进行删除
+        for(String id:list){
+            buildingService.delete(Long.parseLong(id));
         }
         return R.ok();
     }
@@ -89,8 +83,8 @@ public class BuildingController {
     @ApiOperation(value = "更新")
     @RequestMapping("/update")
     public R update(@RequestBody Building building){
-        int num = buildingService.updateData(building);
-        if (num > 0){
+        int num= buildingService.updateData(building);
+        if(num>0){
             return R.ok();
         }else{
             return R.fail("修改失败");
@@ -104,7 +98,7 @@ public class BuildingController {
     })
     @GetMapping()
     public IPage<Building> findListByPage(@RequestParam Integer page,
-                                   @RequestParam Integer pageCount){
+                                          @RequestParam Integer pageCount){
         return buildingService.findListByPage(page, pageCount);
     }
 

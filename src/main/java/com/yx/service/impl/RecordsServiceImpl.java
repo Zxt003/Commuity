@@ -1,18 +1,14 @@
 package com.yx.service.impl;
 
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.yx.pojo.RecordVo;
-import com.yx.pojo.Records;
 import com.yx.dao.RecordsMapper;
+import com.yx.model.RecordVo;
+import com.yx.model.Records;
 import com.yx.service.IRecordsService;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
 
@@ -21,20 +17,20 @@ import java.util.List;
  *  服务实现类
  * </p>
  *
- * @author yx
- * @since 2021-04-09
+ * @author kappy
+ * @since 2020-10-28
  */
 @Service
 public class RecordsServiceImpl extends ServiceImpl<RecordsMapper, Records> implements IRecordsService {
-
     @Autowired
     private RecordsMapper recordsDao;
 
     @Override
-    public PageInfo<RecordVo> queryRecordsAll(Integer page, Integer limit, RecordVo recordVo) {
+    public PageInfo<RecordVo> findRecordsAll(int page, int limit, RecordVo recordVo) {
         PageHelper.startPage(page,limit);
         List<RecordVo> list=recordsDao.queryRecordsAll(recordVo);
-        return new PageInfo<>(list);
+        PageInfo<RecordVo> pageInfo=new PageInfo<>(list);
+        return pageInfo;
     }
 
     @Override
@@ -43,17 +39,11 @@ public class RecordsServiceImpl extends ServiceImpl<RecordsMapper, Records> impl
     }
 
     @Override
-    public  IPage<Records> findListByPage(Integer page, Integer pageCount){
-        IPage<Records> wherePage = new Page<>(page, pageCount);
-        Records where = new Records();
-
-        return   baseMapper.selectPage(wherePage, Wrappers.query(where));
+    public int add(Records building){
+        return baseMapper.insert(building);
     }
 
-    @Override
-    public int add(Records records){
-        return baseMapper.insert(records);
-    }
+
 
     @Override
     public int delete(Long id){
@@ -61,12 +51,15 @@ public class RecordsServiceImpl extends ServiceImpl<RecordsMapper, Records> impl
     }
 
     @Override
-    public int updateData(Records records){
-        return baseMapper.updateById(records);
+    public int updateData(Records building){
+        return baseMapper.updateById(building);
     }
 
     @Override
     public Records findById(Long id){
         return  baseMapper.selectById(id);
     }
+
+
+
 }

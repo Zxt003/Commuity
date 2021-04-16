@@ -2,45 +2,30 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.yx.dao.RecordsMapper">
 
-        <!-- 通用查询映射结果 -->
-        <resultMap id="BaseResultMap" type="com.yx.pojo.Records">
-                    <id column="id" property="id"/>
-                    <result column="type_id" property="typeId"/>
-                    <result column="num" property="num"/>
-                    <result column="num2" property="num2"/>
-                    <result column="house_id" property="houseId"/>
-                    <result column="up_time" property="upTime"/>
-                    <result column="on_time" property="onTime"/>
-                    <result column="check_time" property="checkTime"/>
-                    <result column="meter" property="meter"/>
-                    <result column="remarks" property="remarks"/>
-        </resultMap>
+    <select id="queryRecordsAll" parameterType="com.yx.model.RecordVo"
+            resultType="com.yx.model.RecordVo">
+   SELECT
+	rec.*,hou.numbers,own.username,type.`name` as typename
+    FROM
+        records rec
+    LEFT JOIN property_type type ON type.id = rec.type_id
+    LEFT JOIN house hou ON hou.id = rec.house_id
+    LEFT JOIN OWNER own ON own.house_id = hou.id
+   <where>
+       <if test="numbers!=null and numbers!=''">
+            and numbers like '%${numbers}%'
+       </if>
+       <if test="typeId!=null ">
+           and type_id=#{typeId}
+       </if>
+   </where>
+    </select>
 
-        <!-- 通用查询结果列 -->
-        <sql id="Base_Column_List">
-            id, type_id, num, num2, house_id, up_time, on_time, check_time, meter, remarks
-        </sql>
 
 
-        <select id="queryRecordsAll" parameterType="com.yx.pojo.RecordVo" resultType="com.yx.pojo.RecordVo">
-            SELECT records.*,house.numbers,owner.username,type.name AS typename
-            FROM records
-            LEFT JOIN property_type TYPE ON records.type_id = type.id
-            LEFT JOIN house ON records.house_id = house.id
-            LEFT JOIN OWNER ON owner.house_id = house.id
-            <where>
-                <if test="numbers!=null and numbers!=''">
-                    and numbers like '%${numbers}%'
-                </if>
-                <if test="typeId!=null ">
-                    and type_id=#{typeId}
-                </if>
-            </where>
-            order by records.id desc
-        </select>
+    <select id="queryByHouIdAndTypeId" parameterType="int" resultType="com.yx.model.Records">
+          select * from records where house_id=#{houId} and type_id=#{typeId} order by id desc
+          limit 1
+    </select>
 
-        <select id="queryByHouIdAndTypeId" parameterType="Integer" resultType="com.yx.pojo.Records">
-              select * from records where house_id=#{houId} and type_id=#{typeId} order by id desc
-              limit 1
-        </select>
 </mapper>

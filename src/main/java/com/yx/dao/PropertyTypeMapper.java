@@ -1,15 +1,15 @@
 package com.yx.dao;
 
-import com.yx.pojo.PropertyType;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.yx.model.PropertyType;
 
 /**
  * <p>
  *  Mapper 接口
  * </p>
  *
- * @author yx
- * @since 2021-04-09
+ * @author kappy
+ * @since 2020-11-08
  */
 public interface PropertyTypeMapper extends BaseMapper<PropertyType> {
 

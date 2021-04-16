@@ -63,12 +63,8 @@
                 <li class="layui-nav-item layuimini-setting">
                     <a href="javascript:;"><span id="username"></span></a>
                     <dl class="layui-nav-child">
-
                         <dd>
-                            <a href="#" class="">修改密码</a>
-                        </dd>
-                        <dd>
-                            <a href="/loginOut" class="login-out">退出登录</a>
+                            <a href="/loginOut" class="loginOut">退出登录</a>
                         </dd>
                     </dl>
                 </li>
@@ -119,13 +115,12 @@
             miniAdmin = layui.miniAdmin,
             miniTongji = layui.miniTongji;
 
-        //var type=localStorage.getItem("type");
-        /*if(type=='1'){
+        var type=localStorage.getItem("type");
+        if(type=='1'){
             url="api/init.json";
         }else{
             url="api/init2.json"
-        }*/
-        url="api/init.json";
+        }
         var username=localStorage.getItem("username");
         if(username!=null){
             document.getElementById("username").innerText=username
@@ -142,13 +137,16 @@
         };
         miniAdmin.render(options);
 
-        $('.login-out').on("click", function () {
-            layer.msg('退出登录成功', function () {
-
+        $('.loginOut').on("click", function () {
+            layer.msg('退出登录成功', {
+                icon: 6,
+                time: 500
+            },function () {
                 window.location = 'login.html';
             });
         });
     });
+
 </script>
 </body>
 </html>

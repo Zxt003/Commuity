@@ -1,27 +1,22 @@
 package com.yx.controller;
 
 import com.github.pagehelper.PageInfo;
-import com.yx.pojo.Count;
-import com.yx.pojo.Repairtype;
+import com.yx.model.*;
+import com.yx.service.IOwnerService;
+import com.yx.service.IRepairService;
 import com.yx.service.IRepairtypeService;
 import com.yx.util.JsonObject;
 import com.yx.util.R;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
-import com.yx.service.IRepairService;
-import com.yx.pojo.Repair;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import com.baomidou.mybatisplus.core.metadata.IPage;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import org.springframework.web.bind.annotation.RestController;
-
+import javax.servlet.http.HttpServletRequest;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -29,8 +24,8 @@ import java.util.List;
  *  前端控制器
  * </p>
  *
- * @author yx
- * @since 2021-04-09
+ * @author kappy
+ * @since 2020-10-28
  */
 @Api(tags = {""})
 @RestController
@@ -41,68 +36,94 @@ public class RepairController {
 
     @Resource
     private IRepairService repairService;
-
     @Resource
     private IRepairtypeService repairtypeService;
 
+    @Resource
+    private IOwnerService ownerService;
 
     @RequestMapping("/queryRepairAll")
-    public JsonObject queryComplaintAll(@RequestParam(defaultValue = "1") Integer pageNum, @RequestParam(defaultValue = "15") Integer limit, Repair repair){
-        PageInfo<Repair> pageInfo = repairService.queryRepairAll(pageNum, limit, repair);
+    public JsonObject queryRepairAll(Repair repair,
+                                     @RequestParam(defaultValue = "1") Integer page,
+                                     @RequestParam(defaultValue = "15") Integer limit){
+
+
+        PageInfo<Repair> pageInfo=repairService.findRepairAll(page,limit,repair);
         return new JsonObject(0,"ok",pageInfo.getTotal(),pageInfo.getList());
+
     }
 
+    @RequestMapping("/queryRepairAll2")
+    public JsonObject queryRepairAll2(Repair repair, HttpServletRequest request,
+                                     @RequestParam(defaultValue = "1") Integer page,
+                                      @RequestParam(defaultValue = "15") Integer limit){
+
+
+        //获取当前得登录用户
+        Userinfo userinfo= (Userinfo) request.getSession().getAttribute("user");
+        String username=userinfo.getUsername();
+        //根据username获取登录账号得业主id
+        Owner owner=ownerService.queryOwnerByName(username);
+        repair.setOwnerId(owner.getId());
+        PageInfo<Repair> pageInfo=repairService.findRepairAll(page,limit,repair);
+        return new JsonObject(0,"ok",pageInfo.getTotal(),pageInfo.getList());
+
+    }
 
     @RequestMapping("/queryAll")
     public List<Repairtype> queryAll(){
-        return repairtypeService.findList();
+       return repairtypeService.findList();
+    }
+
+
+    @RequestMapping("/deleteByIds")
+    public R deleteByIds(String ids){
+       List<String> list= Arrays.asList(ids.split(","));
+       for(String id:list){
+           repairService.delete(Long.parseLong(id));
+       }
+
+       return R.ok();
     }
 
     @ApiOperation(value = "新增")
-    @PostMapping()
-    public int add(@RequestBody Repair repair){
-        return repairService.add(repair);
-    }
-
-    @ApiOperation(value = "删除")
-    @RequestMapping("/deleteByIds")
-    public R deleteByIds(String ids){
-        List<String> list = Arrays.asList(ids.split(","));
-        for (String id : list){
-            repairService.delete(Long.parseLong(id));
+    @RequestMapping("/add")
+    public R add(@RequestBody Repair repair,HttpServletRequest request)
+    {
+        //获取当前得登录用户
+        Userinfo userinfo= (Userinfo) request.getSession().getAttribute("user");
+        String username=userinfo.getUsername();
+        //根据username获取登录账号得业主id
+        Owner owner=ownerService.queryOwnerByName(username);
+        repair.setOwnerId(owner.getId());
+        repair.setStatus(0);
+        repair.setComDate(new Date());
+        int num=repairService.add(repair);
+        if(num>0){
+            return  R.ok();
         }
-        return R.ok();
+        return R.fail("失败啦");
     }
 
     @ApiOperation(value = "更新")
-    @PutMapping()
-    public int update(@RequestBody Repair repair){
-        return repairService.updateData(repair);
+    @RequestMapping("/update")
+    public R update(Integer id){
+         Repair repair=new Repair();
+         repair.setId(id);
+         repair.setStatus(1);
+         repair.setHandleDate(new Date());
+         int num=repairService.updateData(repair);
+         return R.ok();
     }
-
-    @ApiOperation(value = "查询分页数据")
-    @ApiImplicitParams({
-        @ApiImplicitParam(name = "page", value = "页码"),
-        @ApiImplicitParam(name = "pageCount", value = "每页条数")
-    })
-    @GetMapping()
-    public IPage<Repair> findListByPage(@RequestParam Integer page,
-                                   @RequestParam Integer pageCount){
-        return repairService.findListByPage(page, pageCount);
-    }
-
-    @ApiOperation(value = "id查询")
-    @GetMapping("{id}")
-    public Repair findById(@PathVariable Long id){
-        return repairService.findById(id);
-    }
-
 
     /**
      * 统计分析
      */
-    @RequestMapping("/queryCount")
-    public List<Count> queryCount(){
-        return repairService.queryCount();
+    @RequestMapping("/queryTongJi")
+    public List<Tongji> queryTongji(){
+        return repairService.queryTongji();
     }
+
+
+
 }

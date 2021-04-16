@@ -1,24 +1,28 @@
 package com.yx.service;
 
-import com.github.pagehelper.PageInfo;
-import com.yx.pojo.House;
-import com.baomidou.mybatisplus.extension.service.IService;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.service.IService;
+import com.github.pagehelper.PageInfo;
+import com.yx.model.House;
+
+import java.util.List;
 
 /**
  * <p>
  *  服务类
  * </p>
  *
- * @author yx
- * @since 2021-04-09
+ * @author kappy
+ * @since 2020-11-08
  */
 public interface IHouseService extends IService<House> {
 
     /**
      * 分页查询房屋信息
      */
-    PageInfo<House> queryHouseAll(Integer pageNum,Integer limit,String numbers);
+    PageInfo<House> findHouseAll(int page,int pagesize,String numbers);
+
+    List<House> findList();
 
     /**
      * 查询分页数据

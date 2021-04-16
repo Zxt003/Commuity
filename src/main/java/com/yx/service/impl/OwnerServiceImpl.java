@@ -1,17 +1,16 @@
 package com.yx.service.impl;
 
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
-import com.yx.dao.HouseMapper;
-import com.yx.pojo.Owner;
-import com.yx.dao.OwnerMapper;
-import com.yx.service.IOwnerService;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import com.yx.dao.OwnerMapper;
+import com.yx.model.Owner;
+import com.yx.service.IOwnerService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -20,28 +19,33 @@ import java.util.List;
  *  服务实现类
  * </p>
  *
- * @author yx
- * @since 2021-04-09
+ * @author kappy
+ * @since 2020-11-08
  */
 @Service
 public class OwnerServiceImpl extends ServiceImpl<OwnerMapper, Owner> implements IOwnerService {
 
     @Autowired
     private OwnerMapper ownerDao;
-
     @Override
-    public PageInfo<Owner> queryOwnerAll(Integer pageNum, Integer limit, Owner owner) {
-        PageHelper.startPage(pageNum,limit);
-        List<Owner> list = ownerDao.queryOwnerAll(owner);
-        return new PageInfo<>(list);
+    public PageInfo<Owner> findOwnerAll(int page, int pagesize, Owner owner) {
+        PageHelper.startPage(page,pagesize);
+        List<Owner> list=ownerDao.queryOwnerAll(owner);
+        PageInfo<Owner> pageInfo=new PageInfo<>(list);
+        return pageInfo;
     }
 
     @Override
-    public  IPage<Owner> findListByPage(Integer page, Integer pageCount){
+    public IPage<Owner> findListByPage(Integer page, Integer pageCount){
         IPage<Owner> wherePage = new Page<>(page, pageCount);
         Owner where = new Owner();
 
         return   baseMapper.selectPage(wherePage, Wrappers.query(where));
+    }
+
+    @Override
+    public Owner queryOwnerByName(String username) {
+        return ownerDao.queryOwnerByName(username);
     }
 
     @Override

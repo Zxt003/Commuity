@@ -1,17 +1,17 @@
 package com.yx.service.impl;
 
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
-import com.yx.pojo.Count;
-import com.yx.pojo.Repair;
-import com.yx.dao.RepairMapper;
-import com.yx.service.IRepairService;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import com.yx.dao.RepairMapper;
+import com.yx.model.Repair;
+import com.yx.model.Tongji;
+import com.yx.service.IRepairService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -20,24 +20,30 @@ import java.util.List;
  *  服务实现类
  * </p>
  *
- * @author yx
- * @since 2021-04-09
+ * @author kappy
+ * @since 2020-10-28
  */
 @Service
 public class RepairServiceImpl extends ServiceImpl<RepairMapper, Repair> implements IRepairService {
 
     @Autowired
     private RepairMapper repairDao;
-
     @Override
-    public PageInfo<Repair> queryRepairAll(Integer pageNum, Integer limit, Repair repair) {
-        PageHelper.startPage(pageNum,limit);
-        List<Repair> list = repairDao.queryRepairAll(repair);
-        return new PageInfo<>(list);
+    public PageInfo<Repair> findRepairAll(int page, int pagesise, Repair repair) {
+        PageHelper.startPage(page,pagesise);
+        List<Repair> list=repairDao.queryRepairAll(repair);
+        PageInfo<Repair> pageInfo=new PageInfo(list);
+        return pageInfo;
     }
 
     @Override
-    public  IPage<Repair> findListByPage(Integer page, Integer pageCount){
+    public List<Repair> queryList() {
+        return repairDao.queryRepairAll(null);
+    }
+
+
+    @Override
+    public IPage<Repair> findListByPage(Integer page, Integer pageCount){
         IPage<Repair> wherePage = new Page<>(page, pageCount);
         Repair where = new Repair();
 
@@ -65,7 +71,7 @@ public class RepairServiceImpl extends ServiceImpl<RepairMapper, Repair> impleme
     }
 
     @Override
-    public List<Count> queryCount() {
-        return repairDao.queryCount();
+    public List<Tongji> queryTongji() {
+        return repairDao.queryTongji();
     }
 }

@@ -1,17 +1,16 @@
 package com.yx.service.impl;
 
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
-import com.yx.pojo.House;
-import com.yx.dao.HouseMapper;
-import com.yx.service.IHouseService;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import org.apache.ibatis.annotations.Param;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import com.yx.dao.HouseMapper;
+import com.yx.model.House;
+import com.yx.service.IHouseService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -20,24 +19,28 @@ import java.util.List;
  *  服务实现类
  * </p>
  *
- * @author yx
- * @since 2021-04-09
+ * @author kappy
+ * @since 2020-11-08
  */
 @Service
 public class HouseServiceImpl extends ServiceImpl<HouseMapper, House> implements IHouseService {
-
     @Autowired
     private HouseMapper houseDao;
-
     @Override
-    public PageInfo<House> queryHouseAll(Integer pageNum, Integer limit, String numbers) {
-        PageHelper.startPage(pageNum,limit);
-        List<House> houseList = houseDao.queryHouseAll(numbers);
-        return new PageInfo<>(houseList);
+    public PageInfo<House> findHouseAll(int page, int pagesize, String numbers) {
+        PageHelper.startPage(page,pagesize);
+        List<House> list=houseDao.findHouseAll(numbers);
+        PageInfo<House> pageInfo=new PageInfo<>(list);
+        return pageInfo;
     }
 
     @Override
-    public  IPage<House> findListByPage(Integer page, Integer pageCount){
+    public List<House> findList() {
+        return baseMapper.selectList(null);
+    }
+
+    @Override
+    public IPage<House> findListByPage(Integer page, Integer pageCount){
         IPage<House> wherePage = new Page<>(page, pageCount);
         House where = new House();
 

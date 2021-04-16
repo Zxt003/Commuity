@@ -51,7 +51,7 @@
                 //{field: 'id', width: 80, title: 'ID', sort: true},
                 {field: 'username', width: 100, title: '业主姓名'},
                 {field: 'sex', width: 80, title: '性别'},
-                {field: 'tel', width: 120, title: '联系方式'},
+                {field: 'tel', width: 100, title: '联系方式'},
                 {field: 'identity', width: 100, title: '身份证号'},
                 {templet:'<div>{{d.house.numbers}}</div>',width: 100, title: '房屋编号'},
                 {title: '操作', minWidth: 150, toolbar: '#currentTableBar', align: "center"}
@@ -131,7 +131,7 @@
                     //获取要删除id的集合
                     var ids =getCheckId(data);
                     layer.confirm('你确定要删除记录吗？',function (index) {
-                        //执行删除功能
+                         //执行删除功能
                         deleteByIds($,"owner/deleteByIds",ids,index);
                     })
 
@@ -176,7 +176,7 @@
                 });
                 return false;
             } else if (obj.event === 'delete') {
-                layer.confirm('确认是否删除', function (index) {
+                layer.confirm('确定是否删除', function (index) {
                     deleteByIds($,"owner/deleteByIds",data.id,index)
                 });
             }

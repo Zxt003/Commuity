@@ -1,10 +1,4 @@
-/**
- * 增加
- * @param content
- * @param title
- * @param width
- * @param heigth
- */
+//打开添加获取编辑页面
 function openPage(content,title,width,heigth){
 
     var index = layer.open({
@@ -21,7 +15,7 @@ function openPage(content,title,width,heigth){
 
 
 /**
- * 获取删除id的集合，最终拼接成一个字符串
+ * 获取删除id的集合
  */
 function getCheckId(data){
     var arr=new Array();
@@ -48,7 +42,6 @@ function deleteByIds($,url,ids,index){
                 },function () {
                     //重载父窗口 关闭当前窗口
                     parent.window.location.reload();
-                    //关闭弹出层
                     var iframeIndex=parent.layer.getFrameIndex(window.name);
                     parent.layer.close(iframeIndex);
                 })
@@ -61,8 +54,8 @@ function deleteByIds($,url,ids,index){
 };
 
 /*
-* 添加或者修改信息实现,因为添加和修改功能除了地址不一致，其他都是一致的
-* */
+添加或者删除信息实现
+* * */
 function addOrUpdateSubmit($,url,datas){
     $.ajax({
         url:url,
@@ -71,7 +64,7 @@ function addOrUpdateSubmit($,url,datas){
         data:JSON.stringify(datas),
         success:function (result) {
             if(result.code==200){
-                layer.msg('执行成功',{
+                layer.msg('成功',{
                     iocn:6,
                     time:500
                 },function () {
@@ -81,7 +74,7 @@ function addOrUpdateSubmit($,url,datas){
                     parent.layer.close(iframeIndex);
                 })
             }else{
-                layer.msg("执行失败");
+                layer.msg("失败");
             }
         }
     })

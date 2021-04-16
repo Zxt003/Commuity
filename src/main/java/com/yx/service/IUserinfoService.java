@@ -1,24 +1,20 @@
 package com.yx.service;
 
-import com.github.pagehelper.PageInfo;
-import com.yx.pojo.Userinfo;
-import com.baomidou.mybatisplus.extension.service.IService;
 import com.baomidou.mybatisplus.core.metadata.IPage;
-
-import java.util.List;
+import com.baomidou.mybatisplus.extension.service.IService;
+import com.github.pagehelper.PageInfo;
+import com.yx.model.Userinfo;
 
 /**
  * <p>
  *  服务类
  * </p>
  *
- * @author yx
- * @since 2021-04-09
+ * @author kappy
+ * @since 2020-10-28
  */
 public interface IUserinfoService extends IService<Userinfo> {
 
-
-    PageInfo<Userinfo> queryUserinfoAll(Integer pageNum, Integer limit, Userinfo userinfo);
     /**
      * 查询分页数据
      *
@@ -27,6 +23,8 @@ public interface IUserinfoService extends IService<Userinfo> {
      * @return IPage<Userinfo>
      */
     IPage<Userinfo> findListByPage(Integer page, Integer pageCount);
+
+    PageInfo<Userinfo> findUserinfoAll(int page, int pageSize, Userinfo userinfo);
 
     /**
      * 添加

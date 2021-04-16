@@ -1,16 +1,16 @@
 package com.yx.service.impl;
 
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
-import com.yx.pojo.Parking;
-import com.yx.dao.ParkingMapper;
-import com.yx.service.IParkingService;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import com.yx.dao.ParkingMapper;
+import com.yx.model.Parking;
+import com.yx.service.IParkingService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -19,8 +19,8 @@ import java.util.List;
  *  服务实现类
  * </p>
  *
- * @author yx
- * @since 2021-04-09
+ * @author kappy
+ * @since 2020-10-28
  */
 @Service
 public class ParkingServiceImpl extends ServiceImpl<ParkingMapper, Parking> implements IParkingService {
@@ -29,19 +29,16 @@ public class ParkingServiceImpl extends ServiceImpl<ParkingMapper, Parking> impl
     private ParkingMapper parkingDao;
 
     @Override
-    public PageInfo<Parking> queryParkAll(Integer pageNum, Integer limit, String numbers) {
-        PageHelper.startPage(pageNum,limit);
-        List<Parking> list = parkingDao.queryParkAll(numbers);
-        return new PageInfo<>(list);
+    public PageInfo<Parking> findParkAll(int page, int pageSize, String numbers) {
+        PageHelper.startPage(page,pageSize);
+        //查询的结果集
+        List<Parking> list=parkingDao.queryParkAll(numbers);
+        PageInfo<Parking> pageInfo=new PageInfo<>(list);
+        return pageInfo;
     }
 
     @Override
-    public List<Parking> queryParkAllByStatus() {
-        return parkingDao.queryParkAllByStatus();
-    }
-
-    @Override
-    public  IPage<Parking> findListByPage(Integer page, Integer pageCount){
+    public IPage<Parking> findListByPage(Integer page, Integer pageCount){
         IPage<Parking> wherePage = new Page<>(page, pageCount);
         Parking where = new Parking();
 
@@ -67,4 +64,16 @@ public class ParkingServiceImpl extends ServiceImpl<ParkingMapper, Parking> impl
     public Parking findById(Long id){
         return  baseMapper.selectById(id);
     }
+
+    @Override
+    public List<Parking> queryParkingAll() {
+        return null;
+    }
+
+    @Override
+    public List<Parking> queryParkingByStatus() {
+        return parkingDao.queryParkAllByStatus();
+    }
+
+
 }

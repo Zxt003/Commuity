@@ -106,9 +106,9 @@
             if (obj.event === 'add') {   // 监听添加操作
 
                 var content = miniPage.getHrefContent('page/base/build/addBuild.html');
-                var index=openPage(content,"添加楼宇",'60%','60%');//title，width,height
+                var index=openPage(content,"添加楼宇",'60%','60%');
                 $(window).on("resize", function () {
-                    layer.full(index);//显示
+                    layer.full(index);
                 });
             } else if (obj.event === 'delete') {  // 监听删除操作
                 /*
@@ -124,8 +124,8 @@
                 }else{
                     //获取要删除id的集合
                     var ids =getCheckId(data);
-                    layer.confirm('你确定要删除吗？',function (index) {
-                        //执行删除功能
+                    layer.confirm('你确定要删除记录吗？',function (index) {
+                         //执行删除功能
                         deleteByIds($,"building/deleteByIds",ids,index);
                     })
 
@@ -142,8 +142,7 @@
         });
 
         /**
-         * 设计渲染form中的信息值，也就是点编辑后出现页面的文本框
-         * 以前是用jsp中jstl实现，现在直接用js实现，文本框中会出现渲染后的信息
+         * 设计渲染form中的信息值
          */
         function setFormValues(data){
             form.val("updateSubmit",{
@@ -163,11 +162,11 @@
                 //渲染数据
                 setFormValues(data);
                 $(window).on("resize", function () {
-                    layer.full(index);//转圈圈UI效果，意思是全屏使用index
+                    layer.full(index);
                 });
                 return false;
             } else if (obj.event === 'delete') {
-                layer.confirm('确定是否删除', function (index) {
+                layer.confirm('真的删除行么', function (index) {
                     deleteByIds($,"building/deleteByIds",data.id,index)
                 });
             }

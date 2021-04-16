@@ -2,7 +2,7 @@
     <div class="layuimini-main">
 
         <div class="demoTable">
-            车位号：
+            车位编号：
             <div class="layui-inline">
                 <input class="layui-input" name="numbers"  id="numbers" autocomplete="off">
             </div>
@@ -47,13 +47,13 @@
                 //{field: 'id', width: 80, title: 'ID', sort: true},
                 {field: 'numbers', width: 100, title: '车位号'},
                 {templet:'<div>{{d.owner.username}}</div>',width: 120, title: '业主姓名'},
-                {templet:'<div>{{d.owner.tel}}</div>',width: 120, title: '业主电话'},
-                {field: 'status', width: 80, title: '车位状态',width: 120,
+                {templet:'<div>{{d.owner.tel}}</div>',width: 100, title: '业主电话'},
+                {field: 'status', width: 80, title: '状态',
                     templet:function(res){
                         if(res.status=='1'){
-                            return '<span class="layui-bg-green">使用</span>';
+                            return '<span class="layui-badge layui-bg-green">使用</span>';
                         }else{
-                            return '<span class="layui-bg-orange">未使用</span>';
+                            return '<span class="layui-badge layui-bg-orange">未使用</span>';
                         }
                     }},
                 {title: '操作', minWidth: 100, toolbar: '#currentTableBar', align: "center"}

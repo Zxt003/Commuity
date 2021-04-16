@@ -1,26 +1,21 @@
 package com.yx.dao;
 
-import com.yx.pojo.House;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.yx.model.House;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-/**
- * <p>
- *  Mapper 接口
- * </p>
- *
- * @author yx
- * @since 2021-04-09
- */
 @Component("houseDao")
 public interface HouseMapper extends BaseMapper<House> {
 
     /**
-     * 查询所有房屋信息
-     * @return
+     * 查询
      */
-    List<House> queryHouseAll(@Param("numbers")String numbers);
+
+    List<House> findHouseAll(@Param("numbers") String numbers);
+
+
+
 }

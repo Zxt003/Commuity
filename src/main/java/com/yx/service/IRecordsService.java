@@ -1,44 +1,32 @@
 package com.yx.service;
 
-import com.github.pagehelper.PageInfo;
-import com.yx.pojo.RecordVo;
-import com.yx.pojo.Records;
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.baomidou.mybatisplus.core.metadata.IPage;
-
-import java.util.List;
+import com.github.pagehelper.PageInfo;
+import com.yx.model.RecordVo;
+import com.yx.model.Records;
 
 /**
  * <p>
  *  服务类
  * </p>
  *
- * @author yx
- * @since 2021-04-09
+ * @author kappy
+ * @since 2020-10-28
  */
-public interface IRecordsService extends IService<Records> {
+public interface IRecordsService extends IService<Records>{
 
     /**
-     * 查询所有抄表记录
+     * 分页查询的记录信息
+     * @param
+     * @return
      */
-    PageInfo<RecordVo> queryRecordsAll(Integer pageNum, Integer limit, RecordVo recordVo);
-
-    public Records queryByHouIdAndTypeId(Integer houId, Integer typeId);
-    /**
-     * 查询分页数据
-     *
-     * @param page      页码
-     * @param pageCount 每页条数
-     * @return IPage<Records>
-     */
-    IPage<Records> findListByPage(Integer page, Integer pageCount);
+    PageInfo<RecordVo> findRecordsAll(int page,int limit,RecordVo recordVo);
 
     /**
-     * 添加
-     *
-     * @param records 
-     * @return int
+     * 根据房子id和类型id查询记录信息最后一条
      */
+    Records queryByHouIdAndTypeId(Integer houId, Integer typeId);
+
     int add(Records records);
 
     /**
@@ -52,16 +40,16 @@ public interface IRecordsService extends IService<Records> {
     /**
      * 修改
      *
-     * @param records 
+     * @param userinfo 
      * @return int
      */
-    int updateData(Records records);
+    int updateData(Records userinfo);
 
     /**
      * id查询数据
      *
      * @param id id
-     * @return Records
+     * @return Userinfo
      */
     Records findById(Long id);
 }

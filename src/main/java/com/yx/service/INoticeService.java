@@ -1,18 +1,28 @@
 package com.yx.service;
 
-import com.yx.pojo.Notice;
-import com.baomidou.mybatisplus.extension.service.IService;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.service.IService;
+import com.github.pagehelper.PageInfo;
+import com.yx.model.Notice;
 
 /**
  * <p>
  *  服务类
  * </p>
  *
- * @author yx
- * @since 2021-04-09
+ * @author kappy
+ * @since 2020-11-08
  */
 public interface INoticeService extends IService<Notice> {
+
+    /**
+     * 查询所有公告信息
+     * @param pageNum
+     * @param limit
+     * @param topic
+     * @return
+     */
+    PageInfo<Notice> queryNoticeAll(Integer pageNum,Integer limit,String topic);
 
     /**
      * 查询分页数据

@@ -3,12 +3,12 @@
 <mapper namespace="com.yx.dao.HouseMapper">
 
         <!-- 通用查询映射结果 -->
-        <resultMap id="BaseResultMap" type="com.yx.pojo.House">
+        <resultMap id="BaseResultMap" type="com.yx.model.House">
                     <id column="id" property="id"/>
                     <result column="storey" property="storey"/>
                     <result column="numbers" property="numbers"/>
                     <result column="status" property="status"/>
-                    <result column="into_date" property="intoDate"/>
+                    <result column="intoDate" property="intoDate"/>
                     <result column="building_id" property="buildingId"/>
                     <result column="remarks" property="remarks"/>
                     <result column="area" property="area"/>
@@ -16,15 +16,16 @@
 
         <!-- 通用查询结果列 -->
         <sql id="Base_Column_List">
-            id, storey, numbers, status, into_date, building_id, remarks, area
+            id, storey, numbers, status, intoDate, building_id, remarks, area
         </sql>
 
-    <select id="queryHouseAll" parameterType="String" resultType="com.yx.pojo.House">
+    <select id="findHouseAll" parameterType="string" resultType="com.yx.model.House">
         select * from house
         <where>
             <if test="numbers!=null and numbers!=''">
-                and numbers like '%${numbers}%'
+                 and numbers like '%${numbers}%'
             </if>
         </where>
     </select>
+
 </mapper>

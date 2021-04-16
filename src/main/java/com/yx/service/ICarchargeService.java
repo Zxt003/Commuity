@@ -1,25 +1,22 @@
 package com.yx.service;
 
-import com.github.pagehelper.PageInfo;
-import com.yx.pojo.Carcharge;
-import com.baomidou.mybatisplus.extension.service.IService;
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import io.swagger.models.auth.In;
+import com.baomidou.mybatisplus.extension.service.IService;
+import com.github.pagehelper.PageInfo;
+import com.yx.model.Carcharge;
 
 /**
  * <p>
  *  服务类
  * </p>
  *
- * @author yx
- * @since 2021-04-09
+ * @author kappy
+ * @since 2020-11-08
  */
 public interface ICarchargeService extends IService<Carcharge> {
 
-    /**
-     * 查询所有车费记录
-     */
-    PageInfo<Carcharge> queryCarChargeAll(Integer pageNum, Integer limit,Carcharge carcharge);
+
+    PageInfo<Carcharge> findCarchargeAll(int page,int pagesise,Carcharge carcharge);
 
     /**
      * 查询分页数据

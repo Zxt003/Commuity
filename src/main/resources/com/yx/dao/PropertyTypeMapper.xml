@@ -3,7 +3,7 @@
 <mapper namespace="com.yx.dao.PropertyTypeMapper">
 
         <!-- 通用查询映射结果 -->
-        <resultMap id="BaseResultMap" type="com.yx.pojo.PropertyType">
+        <resultMap id="BaseResultMap" type="com.yx.model.PropertyType">
                     <id column="id" property="id"/>
                     <result column="name" property="name"/>
                     <result column="price" property="price"/>

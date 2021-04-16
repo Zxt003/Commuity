@@ -5,6 +5,7 @@
             用户类型：
             <div class="layui-inline">
                 <select name="type" id="type" lay-verify="required"  lay-search="">
+                    <option value="">请选择用户类型</option>
                     <option value="1">管理员</option>
                     <option value="0">业主</option>
                 </select>
@@ -88,6 +89,9 @@
             var type = $(this).data('type');
             active[type] ? active[type].call(this) : '';
         });
+
+        form.render('select');//让下拉框在页面上显示
+
         /**
          * toolbar事件监听
          */
@@ -123,10 +127,11 @@
                 }else{
                     //获取删除id的集合
                     var ids=getCheckId(data);
-                    layer.confirm("确认是否删除？",function(index){
+                    layer.confirm("确定是否删除？",function(index){
                         deleteByIds(ids,index);
                     })
                 }
+                 // layer.alert(JSON.stringify(data));
             }
         });
 
@@ -196,7 +201,7 @@
                 return false;
 
             } else if (obj.event === 'stop') {
-                layer.confirm('真的要删除记录吗', function (index) {
+                layer.confirm('确定是否删除', function (index) {
                     //调用删除功能即可
                     updateStatus(id,index);
                     layer.close(index);

@@ -35,7 +35,7 @@
 
         table.render({
             elem: '#currentTableId',
-            url: 'house/queryHouseAll',
+            url: 'house/houseAll',
             toolbar: '#toolbarDemo',
             defaultToolbar: ['filter', 'exports', 'print', {
                 title: '提示',
@@ -47,7 +47,7 @@
                 //{field: 'id', width: 80, title: 'ID', sort: true},
                 {field: 'numbers', width: 80, title: '房号'},
                 {field: 'area', width: 80, title: '面积'},
-                {field: 'intoDate', width: 160, title: '入住时间'},
+                {field: 'intoDate', width: 150, title: '入住时间'},
                 {field: 'status', width: 80, title: '状态',
                  templet:function(res){
                     if(res.status=='1'){
@@ -178,7 +178,7 @@
                 });
                 return false;
             } else if (obj.event === 'delete') {
-                layer.confirm('真的删除行么', function (index) {
+                layer.confirm('确定是否删除', function (index) {
                     deleteByIds($,"house/deleteByIds",data.id,index)
                 });
             }

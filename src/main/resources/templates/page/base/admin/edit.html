@@ -17,7 +17,7 @@
                 </div>
             </div>
             <div class="layui-form-item">
-                <label class="layui-form-label required">再次确认</label>
+                <label class="layui-form-label required">确认密码</label>
                 <div class="layui-input-block">
                     <input type="password" name="newPwd2" lay-verify="required"   class="layui-input">
                 </div>
@@ -55,7 +55,7 @@
                     success:function(result){
                         console.log(result)
                         if(result.code==200){
-                            layer.msg("添加成功",{
+                            layer.msg("修改成功",{
                                 icon:6,
                                 time:500
                             },function(){
@@ -65,7 +65,7 @@
                             });
 
                         }else{
-                            layer.msg("添加失败");
+                            layer.msg("修改失败");
                         }
                     }
                 })

@@ -1,19 +1,17 @@
 package com.yx.controller;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.yx.model.ComplaintType;
+import com.yx.service.IComplaintTypeService;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
-import org.springframework.web.bind.annotation.*;
-import com.yx.service.IComplaintTypeService;
-import com.yx.pojo.ComplaintType;
-import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import com.baomidou.mybatisplus.core.metadata.IPage;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import org.springframework.web.bind.annotation.RestController;
-
 import java.util.List;
 
 /**
@@ -21,8 +19,8 @@ import java.util.List;
  *  前端控制器
  * </p>
  *
- * @author yx
- * @since 2021-04-09
+ * @author kappy
+ * @since 2020-11-08
  */
 @Api(tags = {""})
 @RestController
@@ -34,9 +32,10 @@ public class ComplaintTypeController {
     @Resource
     private IComplaintTypeService complaintTypeService;
 
+
     @RequestMapping("/queryAll")
     public List<ComplaintType> queryAll(){
-        return complaintTypeService.queryType();
+       return  complaintTypeService.queryType();
     }
 
     @ApiOperation(value = "新增")
@@ -64,7 +63,7 @@ public class ComplaintTypeController {
     })
     @GetMapping()
     public IPage<ComplaintType> findListByPage(@RequestParam Integer page,
-                                   @RequestParam Integer pageCount){
+                                               @RequestParam Integer pageCount){
         return complaintTypeService.findListByPage(page, pageCount);
     }
 

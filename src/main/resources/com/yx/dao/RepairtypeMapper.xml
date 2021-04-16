@@ -3,7 +3,7 @@
 <mapper namespace="com.yx.dao.RepairtypeMapper">
 
         <!-- 通用查询映射结果 -->
-        <resultMap id="BaseResultMap" type="com.yx.pojo.Repairtype">
+        <resultMap id="BaseResultMap" type="com.yx.model.Repairtype">
                     <id column="id" property="id"/>
                     <result column="name" property="name"/>
                     <result column="remarks" property="remarks"/>

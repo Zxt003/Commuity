@@ -1,8 +1,8 @@
 package com.yx.service;
 
-import com.yx.pojo.Repairtype;
-import com.baomidou.mybatisplus.extension.service.IService;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.service.IService;
+import com.yx.model.Repairtype;
 
 import java.util.List;
 
@@ -11,13 +11,11 @@ import java.util.List;
  *  服务类
  * </p>
  *
- * @author yx
- * @since 2021-04-09
+ * @author kappy
+ * @since 2020-10-28
  */
 public interface IRepairtypeService extends IService<Repairtype> {
 
-    //查询所有的类型记录
-    List<Repairtype> findList();
     /**
      * 查询分页数据
      *
@@ -26,6 +24,9 @@ public interface IRepairtypeService extends IService<Repairtype> {
      * @return IPage<Repairtype>
      */
     IPage<Repairtype> findListByPage(Integer page, Integer pageCount);
+
+    //查询所有的类型记录
+    List<Repairtype> findList();
 
     /**
      * 添加

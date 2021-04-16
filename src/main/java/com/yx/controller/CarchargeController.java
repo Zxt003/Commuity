@@ -1,25 +1,26 @@
 package com.yx.controller;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.github.pagehelper.PageInfo;
-import com.yx.pojo.Parking;
+import com.yx.model.Carcharge;
+import com.yx.model.Owner;
+import com.yx.model.Parking;
+import com.yx.model.Userinfo;
+import com.yx.service.ICarchargeService;
+import com.yx.service.IOwnerService;
 import com.yx.service.IParkingService;
 import com.yx.util.JsonObject;
 import com.yx.util.R;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
-import com.yx.service.ICarchargeService;
-import com.yx.pojo.Carcharge;
-import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import com.baomidou.mybatisplus.core.metadata.IPage;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import org.springframework.web.bind.annotation.RestController;
-
+import javax.servlet.http.HttpServletRequest;
 import java.util.Arrays;
 import java.util.List;
 
@@ -28,8 +29,8 @@ import java.util.List;
  *  前端控制器
  * </p>
  *
- * @author yx
- * @since 2021-04-09
+ * @author kappy
+ * @since 2020-11-08
  */
 @Api(tags = {""})
 @RestController
@@ -41,44 +42,72 @@ public class CarchargeController {
     @Resource
     private ICarchargeService carchargeService;
 
-    @Autowired
+    @Resource
     private IParkingService parkingService;
 
+    @Resource
+    private IOwnerService ownerService;
+
+
     @RequestMapping("/queryCarchargeAll")
-    public JsonObject queryCarchargeAll(@RequestParam(defaultValue = "1") Integer pageNum, @RequestParam(defaultValue = "15") Integer limit,Carcharge carcharge,String numbers){
-        if (numbers != null){
-            Parking parking = new Parking();
-            parking.setNumbers(numbers);
-            carcharge.setParking(parking);
-        }
-        PageInfo<Carcharge> pageInfo = carchargeService.queryCarChargeAll(pageNum, limit, carcharge);
+    public JsonObject queryCarchargeAll(Carcharge carcharge, String numbers,
+                                        @RequestParam(defaultValue = "1") Integer page,
+                                        @RequestParam(defaultValue = "15") Integer limit){
+       if(numbers!=null){
+           Parking parking=new Parking();
+           parking.setNumbers(numbers);
+           carcharge.setParking(parking);
+       }
+
+        PageInfo<Carcharge> pageInfo=carchargeService.findCarchargeAll(page,limit,carcharge);
         return new JsonObject(0,"ok",pageInfo.getTotal(),pageInfo.getList());
+
     }
+
+
+    @RequestMapping("/queryCarchargeAll2")
+    public JsonObject queryCarchargeAll2(Carcharge carcharge, HttpServletRequest request,
+                                        @RequestParam(defaultValue = "1") Integer page,
+                                         @RequestParam(defaultValue = "15") Integer limit){
+
+        Userinfo userinfo= (Userinfo) request.getSession().getAttribute("user");
+        String username=userinfo.getUsername();
+        //根据username获取登录账号得业主id
+        Owner owner=ownerService.queryOwnerByName(username);
+        Integer userId=owner.getId();
+        carcharge.setOwnerId(userId);
+        PageInfo<Carcharge> pageInfo=carchargeService.findCarchargeAll(page,limit,carcharge);
+        return new JsonObject(0,"ok",pageInfo.getTotal(),pageInfo.getList());
+
+    }
+
 
 
     @ApiOperation(value = "新增")
     @RequestMapping("/initData")
-    public R initData(@RequestBody Carcharge carcharge){
+    public R InitData(@RequestBody Carcharge carcharge){
         /**
-         * 遍历所有的车位信息（这是为了给所有车一起收费）
+         * 遍历所有得已在使用得车位信息
          */
-        List<Parking> parkings = parkingService.queryParkAllByStatus();//获取到所有正在使用的车位
-        for (Parking parking : parkings){
-            carcharge.setStatus(0);//初始化后的车肯定是未使用的
-            carcharge.setOwnerId(parking.getOwnerId());
+        List<Parking> parkingList=parkingService.queryParkingByStatus();
+        for(Parking park:parkingList){
+            carcharge.setStatus(0);
+            carcharge.setOwnerId(park.getOwnerId());
             carcharge.setType("停车费");
-            carcharge.setParkId(parking.getId());
+            carcharge.setParkId(park.getId());
             carchargeService.add(carcharge);
         }
-        return R.ok();
+       return R.ok();
+
     }
 
     @ApiOperation(value = "删除")
     @RequestMapping("/deleteByIds")
     public R delete(String ids){
-        List<String> list = Arrays.asList(ids.split(","));
-        for (String id : list){
-            carchargeService.delete(Long.parseLong(id));
+        List<String> list= Arrays.asList(ids.split(","));
+        for(String id:list){
+           Long idLong=new Long(id);
+           carchargeService.delete(idLong);
         }
         return R.ok();
     }
@@ -86,15 +115,14 @@ public class CarchargeController {
     @ApiOperation(value = "更新")
     @RequestMapping("/update")
     public R update(Integer id){
-        Carcharge carcharge = new Carcharge();
+        Carcharge carcharge =new Carcharge();
         carcharge.setId(id);
-        carcharge.setStatus(1);//已经缴费
-        int num = carchargeService.updateData(carcharge);
-        if (num > 0){
+        carcharge.setStatus(1);
+        int num=carchargeService.updateData(carcharge);
+        if(num>0){
             return R.ok();
-        }else {
-            return R.fail("修改失败");
         }
+        return R.fail("失败");
     }
 
     @ApiOperation(value = "查询分页数据")
@@ -104,7 +132,7 @@ public class CarchargeController {
     })
     @GetMapping()
     public IPage<Carcharge> findListByPage(@RequestParam Integer page,
-                                   @RequestParam Integer pageCount){
+                                           @RequestParam Integer pageCount){
         return carchargeService.findListByPage(page, pageCount);
     }
 

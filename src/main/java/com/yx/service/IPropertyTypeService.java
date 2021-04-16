@@ -1,8 +1,8 @@
 package com.yx.service;
 
-import com.yx.pojo.PropertyType;
-import com.baomidou.mybatisplus.extension.service.IService;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.service.IService;
+import com.yx.model.PropertyType;
 
 import java.util.List;
 
@@ -11,8 +11,8 @@ import java.util.List;
  *  服务类
  * </p>
  *
- * @author yx
- * @since 2021-04-09
+ * @author kappy
+ * @since 2020-11-08
  */
 public interface IPropertyTypeService extends IService<PropertyType> {
 
@@ -56,6 +56,7 @@ public interface IPropertyTypeService extends IService<PropertyType> {
      * @return PropertyType
      */
     PropertyType findById(Long id);
+
 
     List<PropertyType> findAll();
 }

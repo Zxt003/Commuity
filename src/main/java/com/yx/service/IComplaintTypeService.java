@@ -1,8 +1,8 @@
 package com.yx.service;
 
-import com.yx.pojo.ComplaintType;
-import com.baomidou.mybatisplus.extension.service.IService;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.service.IService;
+import com.yx.model.ComplaintType;
 
 import java.util.List;
 
@@ -11,12 +11,10 @@ import java.util.List;
  *  服务类
  * </p>
  *
- * @author yx
- * @since 2021-04-09
+ * @author kappy
+ * @since 2020-11-08
  */
 public interface IComplaintTypeService extends IService<ComplaintType> {
-
-    List<ComplaintType> queryType();
 
     /**
      * 查询分页数据
@@ -27,6 +25,7 @@ public interface IComplaintTypeService extends IService<ComplaintType> {
      */
     IPage<ComplaintType> findListByPage(Integer page, Integer pageCount);
 
+    List<ComplaintType> queryType();
     /**
      * 添加
      *

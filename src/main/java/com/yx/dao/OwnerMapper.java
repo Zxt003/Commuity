@@ -1,24 +1,26 @@
 package com.yx.dao;
 
-import com.yx.pojo.Owner;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.yx.model.Owner;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 
 /**
  * <p>
- *  Mapper 接口（业主）
+ *  Mapper 接口
  * </p>
  *
- * @author yx
- * @since 2021-04-09
+ * @author kappy
+ * @since 2020-11-08
  */
 @Component("ownerDao")
 public interface OwnerMapper extends BaseMapper<Owner> {
 
-    /**
-     * 查询所有业主信息
-     */
+    //查询
     List<Owner> queryOwnerAll(Owner owner);
+
+    Owner queryOwnerByName(@Param("username") String username);
+
 }

@@ -11,14 +11,14 @@ public class JsonObject<T> {
     private  Long count;
     private List<T> data;
 
-    public JsonObject() {
-    }
-
     public JsonObject(Integer code, String msg, Long count, List<T> data) {
         this.code = code;
         this.msg = msg;
         this.count = count;
         this.data = data;
+    }
+
+    public JsonObject() {
     }
 
     public Integer getCode() {

@@ -1,9 +1,9 @@
 package com.yx.service;
 
-import com.github.pagehelper.PageInfo;
-import com.yx.pojo.Parking;
-import com.baomidou.mybatisplus.extension.service.IService;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.service.IService;
+import com.github.pagehelper.PageInfo;
+import com.yx.model.Parking;
 
 import java.util.List;
 
@@ -12,18 +12,13 @@ import java.util.List;
  *  服务类
  * </p>
  *
- * @author yx
- * @since 2021-04-09
+ * @author kappy
+ * @since 2020-10-28
  */
 public interface IParkingService extends IService<Parking> {
 
+    PageInfo<Parking> findParkAll(int page, int pageSize, String numbers);
 
-    /**
-     * 查询所有车位信息
-     */
-    PageInfo<Parking> queryParkAll(Integer pageNum,Integer limit,String numbers);
-
-    List<Parking> queryParkAllByStatus();
     /**
      * 查询分页数据
      *
@@ -64,4 +59,8 @@ public interface IParkingService extends IService<Parking> {
      * @return Parking
      */
     Parking findById(Long id);
+
+    List<Parking> queryParkingAll();
+
+    List<Parking> queryParkingByStatus();
 }

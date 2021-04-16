@@ -3,7 +3,7 @@
 <mapper namespace="com.yx.dao.ComplaintMapper">
 
         <!-- 通用查询映射结果 -->
-        <resultMap id="BaseResultMap" type="com.yx.pojo.Complaint">
+        <resultMap id="BaseResultMap" type="com.yx.model.Complaint">
                     <id column="id" property="id"/>
                     <result column="com_id" property="comId"/>
                     <result column="com_date" property="comDate"/>
@@ -19,30 +19,38 @@
             id, com_id, com_date, handle_date, owner_id, status, clr, remarks
         </sql>
 
-    <resultMap id="queryComplaintAllMap" type="com.yx.pojo.Complaint" extends="BaseResultMap">
-        <association property="owner" javaType="com.yx.pojo.Owner">
-            <id column="id" property="id"></id>
-            <result column="username" property="username"></result>
-        </association>
-        <association property="type" javaType="com.yx.pojo.ComplaintType">
-            <id column="id" property="id"></id>
-            <result column="name" property="name"></result>
-        </association>
-    </resultMap>
-    
-    <select id="queryComplaintAll" parameterType="com.yx.pojo.Complaint" resultMap="queryComplaintAllMap">
-        SELECT com.*,owner.username,type.name
-        FROM complaint com
-        LEFT JOIN complaint_type type ON type.id=com.com_id
-        LEFT JOIN owner ON owner.id =com.owner_id
+   <resultMap id="queryComplaintAllMap" type="com.yx.model.Complaint" extends="BaseResultMap">
+       <association property="owner" javaType="com.yx.model.Owner">
+           <id property="id" column="id"></id>
+           <result property="username" column="username"></result>
+       </association>
+       <association property="type" javaType="com.yx.model.ComplaintType">
+           <id property="id" column="id"></id>
+           <result property="name" column="name"></result>
+       </association>
+   </resultMap>
+
+    <select id="queryComplaintAll" parameterType="com.yx.model.Complaint" resultMap="queryComplaintAllMap">
+         SELECT
+            com.*, own.username,
+            type. NAME
+        FROM
+            complaint com
+        LEFT JOIN complaint_type type ON type.id = com.com_id
+        LEFT JOIN `owner` own ON own.id = com.owner_id
+
         <where>
             <if test="comId!=null">
                 and com_id=#{comId}
             </if>
-            <if test="status!=null">
+            <if test="status!=null ">
                 and com.status=#{status}
             </if>
+            <if test="ownerId!=null ">
+                and com.owner_id=#{ownerId}
+            </if>
         </where>
+
     </select>
 
 </mapper>

@@ -1,29 +1,21 @@
 package com.yx.service;
 
-import com.github.pagehelper.PageInfo;
-import com.yx.pojo.Building;
-import com.baomidou.mybatisplus.extension.service.IService;
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import org.springframework.stereotype.Service;
+import com.baomidou.mybatisplus.extension.service.IService;
+import com.github.pagehelper.PageInfo;
+import com.yx.model.Building;
 
 /**
  * <p>
  *  服务类
  * </p>
  *
- * @author yx
- * @since 2021-04-09
+ * @author kappy
+ * @since 2020-11-08
  */
 public interface IBuildingService extends IService<Building> {
 
-    /**
-     * 查询所有楼宇信息
-     * @param pageNum
-     * @param limit
-     * @param numbers
-     * @return
-     */
-    PageInfo<Building> queryBuildAll(Integer pageNum,Integer limit,String numbers);
+    PageInfo<Building> findBuildAll(int page,int pageSize,String numbers);
 
     /**
      * 查询分页数据

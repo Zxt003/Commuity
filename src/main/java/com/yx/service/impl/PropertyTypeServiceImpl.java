@@ -1,13 +1,13 @@
 package com.yx.service.impl;
 
-import com.yx.pojo.PropertyType;
-import com.yx.dao.PropertyTypeMapper;
-import com.yx.service.IPropertyTypeService;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import org.springframework.stereotype.Service;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.yx.dao.PropertyTypeMapper;
+import com.yx.model.PropertyType;
+import com.yx.service.IPropertyTypeService;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -16,19 +16,21 @@ import java.util.List;
  *  服务实现类
  * </p>
  *
- * @author yx
- * @since 2021-04-09
+ * @author kappy
+ * @since 2020-11-08
  */
 @Service
 public class PropertyTypeServiceImpl extends ServiceImpl<PropertyTypeMapper, PropertyType> implements IPropertyTypeService {
 
     @Override
-    public  IPage<PropertyType> findListByPage(Integer page, Integer pageCount){
+    public IPage<PropertyType> findListByPage(Integer page, Integer pageCount){
         IPage<PropertyType> wherePage = new Page<>(page, pageCount);
         PropertyType where = new PropertyType();
 
         return   baseMapper.selectPage(wherePage, Wrappers.query(where));
     }
+
+
 
     @Override
     public int add(PropertyType propertyType){

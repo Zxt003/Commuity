@@ -13,7 +13,7 @@
             <div class="layui-input-block">
                 <select name="type" lay-verify="required" >
                     <option value="1">管理员</option>
-                    <option value="0">业主</option>
+                    <option value="0">房东</option>
                 </select>
             </div>
         </div>
@@ -38,6 +38,7 @@
     layui.use(['form', 'table'], function () {
         var form = layui.form,
             layer = layui.layer,
+            // table = layui.table,
             $ = layui.$;
         form.render();
         //监听提交

@@ -1,26 +1,21 @@
 package com.yx.service;
 
-import com.github.pagehelper.PageInfo;
-import com.yx.pojo.Owner;
-import com.baomidou.mybatisplus.extension.service.IService;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.service.IService;
+import com.github.pagehelper.PageInfo;
+import com.yx.model.Owner;
 
 /**
  * <p>
  *  服务类
  * </p>
  *
- * @author yx
- * @since 2021-04-09
+ * @author kappy
+ * @since 2020-11-08
  */
 public interface IOwnerService extends IService<Owner> {
 
-
-    /**
-     * 查询所有业主信息
-     */
-    PageInfo<Owner> queryOwnerAll(Integer pageNum,Integer limit,Owner owner);
-
+    PageInfo<Owner> findOwnerAll(int page, int pagesize, Owner owner);
     /**
      * 查询分页数据
      *
@@ -29,6 +24,8 @@ public interface IOwnerService extends IService<Owner> {
      * @return IPage<Owner>
      */
     IPage<Owner> findListByPage(Integer page, Integer pageCount);
+
+    Owner queryOwnerByName(String username);
 
     /**
      * 添加

@@ -1,9 +1,9 @@
 package com.yx.service;
 
-import com.github.pagehelper.PageInfo;
-import com.yx.pojo.PropertyInfo;
-import com.baomidou.mybatisplus.extension.service.IService;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.service.IService;
+import com.github.pagehelper.PageInfo;
+import com.yx.model.PropertyInfo;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.Date;
@@ -13,16 +13,20 @@ import java.util.Date;
  *  服务类
  * </p>
  *
- * @author yx
- * @since 2021-04-09
+ * @author kappy
+ * @since 2020-11-08
  */
 public interface IPropertyInfoService extends IService<PropertyInfo> {
 
 
+    PageInfo<PropertyInfo> findPropertyInfoAll(int page, int pagesise,
+                                               PropertyInfo propertyInfo);
+
     /**
-     * 查询所有数据信息
+     * 根据时间和房子id获取相关记录信息
      */
-    PageInfo<PropertyInfo> queryPropertyInfoAll(Integer pageNum,Integer limit,PropertyInfo propertyInfo);
+    void deleteInfoByHouIdAndTime(@Param("houId") Integer houId,@Param("endDate") Date endDate);
+
 
     /**
      * 查询分页数据
@@ -32,11 +36,6 @@ public interface IPropertyInfoService extends IService<PropertyInfo> {
      * @return IPage<PropertyInfo>
      */
     IPage<PropertyInfo> findListByPage(Integer page, Integer pageCount);
-
-    /**
-     * 根据时间和房子id获取相关记录信息
-     */
-    void deleteInfoByHouIdAndTime(@Param("houId") Integer houId,@Param("endDate") Date endDate);
 
     /**
      * 添加

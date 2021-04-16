@@ -1,19 +1,17 @@
 package com.yx.controller;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.yx.model.PropertyType;
+import com.yx.service.IPropertyTypeService;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
-import org.springframework.web.bind.annotation.*;
-import com.yx.service.IPropertyTypeService;
-import com.yx.pojo.PropertyType;
-import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import com.baomidou.mybatisplus.core.metadata.IPage;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import org.springframework.web.bind.annotation.RestController;
-
 import java.util.List;
 
 /**
@@ -21,8 +19,8 @@ import java.util.List;
  *  前端控制器
  * </p>
  *
- * @author yx
- * @since 2021-04-09
+ * @author kappy
+ * @since 2020-11-08
  */
 @Api(tags = {""})
 @RestController
@@ -34,11 +32,14 @@ public class PropertyTypeController {
     @Resource
     private IPropertyTypeService propertyTypeService;
 
+
     @RequestMapping("/queryAll")
     public List<PropertyType> queryList(){
         List<PropertyType> list=  propertyTypeService.findAll();
         return list;
     }
+
+
 
     @ApiOperation(value = "新增")
     @PostMapping()
@@ -65,7 +66,7 @@ public class PropertyTypeController {
     })
     @GetMapping()
     public IPage<PropertyType> findListByPage(@RequestParam Integer page,
-                                   @RequestParam Integer pageCount){
+                                              @RequestParam Integer pageCount){
         return propertyTypeService.findListByPage(page, pageCount);
     }
 

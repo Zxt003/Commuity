@@ -1,16 +1,16 @@
 package com.yx.service.impl;
 
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
-import com.yx.pojo.Userinfo;
-import com.yx.dao.UserinfoMapper;
-import com.yx.service.IUserinfoService;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import com.yx.dao.UserinfoMapper;
+import com.yx.model.Userinfo;
+import com.yx.service.IUserinfoService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -19,28 +19,30 @@ import java.util.List;
  *  服务实现类
  * </p>
  *
- * @author yx
- * @since 2021-04-09
+ * @author kappy
+ * @since 2020-10-28
  */
 @Service
 public class UserinfoServiceImpl extends ServiceImpl<UserinfoMapper, Userinfo> implements IUserinfoService {
-
     @Autowired
-    private UserinfoMapper userinfoDao;
+    private UserinfoMapper userinfoMapper;
+
 
     @Override
-    public PageInfo<Userinfo> queryUserinfoAll(Integer pageNum, Integer limit, Userinfo userinfo) {
-        PageHelper.startPage(pageNum,limit);
-        List<Userinfo> list = userinfoDao.queryUserinfoAll(userinfo);
-        return new PageInfo<>(list);
-    }
-
-    @Override
-    public  IPage<Userinfo> findListByPage(Integer page, Integer pageCount){
+    public IPage<Userinfo> findListByPage(Integer page, Integer pageCount){
         IPage<Userinfo> wherePage = new Page<>(page, pageCount);
         Userinfo where = new Userinfo();
 
         return   baseMapper.selectPage(wherePage, Wrappers.query(where));
+    }
+
+    @Override
+    public PageInfo<Userinfo> findUserinfoAll(int page, int pageSize, Userinfo userinfo) {
+        PageHelper.startPage(page,pageSize);
+        //查询的结果集
+        List<Userinfo> list=userinfoMapper.queryUserinfoAll(userinfo);
+        PageInfo<Userinfo> pageInfo=new PageInfo<>(list);
+        return pageInfo;
     }
 
     @Override
@@ -65,6 +67,6 @@ public class UserinfoServiceImpl extends ServiceImpl<UserinfoMapper, Userinfo> i
 
     @Override
     public Userinfo queryUserByNameAndPwd(Userinfo userinfo) {
-        return userinfoDao.queryUserByNameAndPwd(userinfo);
+        return userinfoMapper.queryUserByNameAndPwd(userinfo);
     }
 }

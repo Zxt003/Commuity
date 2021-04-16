@@ -1,10 +1,10 @@
 package com.yx.service;
 
-import com.github.pagehelper.PageInfo;
-import com.yx.pojo.Count;
-import com.yx.pojo.Repair;
-import com.baomidou.mybatisplus.extension.service.IService;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.service.IService;
+import com.github.pagehelper.PageInfo;
+import com.yx.model.Repair;
+import com.yx.model.Tongji;
 
 import java.util.List;
 
@@ -13,13 +13,14 @@ import java.util.List;
  *  服务类
  * </p>
  *
- * @author yx
- * @since 2021-04-09
+ * @author kappy
+ * @since 2020-10-28
  */
 public interface IRepairService extends IService<Repair> {
 
+    PageInfo<Repair> findRepairAll(int page, int pagesise, Repair repair);
 
-    PageInfo<Repair> queryRepairAll(Integer pageNum, Integer limit, Repair repair);
+    List<Repair> queryList();
     /**
      * 查询分页数据
      *
@@ -61,6 +62,6 @@ public interface IRepairService extends IService<Repair> {
      */
     Repair findById(Long id);
 
-    //统计
-    List<Count> queryCount();
+
+    List<Tongji> queryTongji();
 }

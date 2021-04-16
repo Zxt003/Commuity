@@ -3,7 +3,7 @@
 <mapper namespace="com.yx.dao.ComplaintTypeMapper">
 
         <!-- 通用查询映射结果 -->
-        <resultMap id="BaseResultMap" type="com.yx.pojo.ComplaintType">
+        <resultMap id="BaseResultMap" type="com.yx.model.ComplaintType">
                     <id column="id" property="id"/>
                     <result column="name" property="name"/>
                     <result column="remarks" property="remarks"/>
