@@ -64,7 +64,7 @@ function addOrUpdateSubmit($,url,datas){
         data:JSON.stringify(datas),
         success:function (result) {
             if(result.code==200){
-                layer.msg('成功',{
+                layer.msg('执行成功',{
                     iocn:6,
                     time:500
                 },function () {
@@ -74,7 +74,7 @@ function addOrUpdateSubmit($,url,datas){
                     parent.layer.close(iframeIndex);
                 })
             }else{
-                layer.msg("失败");
+                layer.msg("执行失败");
             }
         }
     })
