@@ -34,7 +34,7 @@
           "target": "_self"
         },
         {
-          "title": "我的保修列表",
+          "title": "我的报修列表",
           "href": "page/other/RepairIndex2.html",
           "icon": "fa fa-adn",
           "target": "_self"
