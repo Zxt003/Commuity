@@ -5,7 +5,7 @@
 
 ## 技术栈
 
-- 数据库：MySQL 8.0
+- 数据库：MySQL
 - 后端技术：SpringBoot，MyBatisPlus
 - 数据连接池：Druid
 - 前端技术：Layui，Ajax，Json等
