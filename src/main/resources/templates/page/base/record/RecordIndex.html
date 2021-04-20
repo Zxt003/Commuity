@@ -8,9 +8,9 @@
             </div>
             费用类型：
             <div class="layui-inline">
-               <select name="typeId"  id="typeId" lay-verify="required" lay-search="">
+                <select name="typeId"  id="typeId" lay-verify="required" lay-search="">
                     <option value="">选择费用类型</option>
-               </select>
+                </select>
             </div>
             <button class="layui-btn" data-type="reload">搜索</button>
         </div>
@@ -104,7 +104,7 @@
             active[type] ? active[type].call(this) : '';
         });
 
-        /*// 监听搜索操作
+        // 监听搜索操作
         form.on('submit(data-search-btn)', function (data) {
             var result = JSON.stringify(data.field);
             layer.alert(result, {
@@ -122,7 +122,7 @@
             }, 'data');
 
             return false;
-        });*/
+        });
 
         /**
          * toolbar事件监听
@@ -149,7 +149,7 @@
                     //获取要删除id的集合
                     var ids =getCheckId(data);
                     layer.confirm('你确定要删除记录吗？',function (index) {
-                         //执行删除功能
+                        //执行删除功能
                         deleteByIds($,"records/deleteByIds",ids,index);
                     })
 
@@ -195,7 +195,7 @@
                 return false;
             } else if (obj.event === 'delete') {
                 layer.confirm('确定是否删除', function (index) {
-                    deleteByIds($,"owner/deleteByIds",data.id,index)
+                    deleteByIds($,"records/deleteByIds",data.id,index)
                 });
             }
         });

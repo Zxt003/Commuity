@@ -55,13 +55,8 @@ public class RecordsController {
    public JsonObject queryRecordsAll(@RequestParam(defaultValue = "1") Integer page,
                                      @RequestParam(defaultValue = "15") Integer limit,
                                      RecordVo recordVo){
-       JsonObject jsonObject=new JsonObject();
        PageInfo <RecordVo> pageInfo=recordsService.findRecordsAll(page,limit,recordVo);
-       jsonObject.setCode(0);
-       jsonObject.setCount(pageInfo.getTotal());
-       jsonObject.setMsg("ok");
-       jsonObject.setData(pageInfo.getList());
-       return jsonObject;
+       return new JsonObject(0,"ok",pageInfo.getTotal(),pageInfo.getList());
 
    }
 
@@ -141,7 +136,7 @@ public class RecordsController {
       public R deleteByIds(String ids){
            //把字符串转list集合
            List<String> list=Arrays.asList(ids.split(","));
-           for(String id:list){
+           for(String id : list){
                Long idLong=Long.parseLong(id);
                //根据id获取对应的记录信息获取登记时间以及房子id
                Records records=recordsService.findById(idLong);
@@ -156,36 +151,5 @@ public class RecordsController {
            }
           return R.ok();
       }
-
-
-
-//
-//    @ApiOperation(value = "更新")
-//    @RequestMapping("/update")
-//    public R update(@RequestBody Building building){
-//        int num=buildingService.updateData(building);
-//        if(num>0){
-//            return R.ok("修改成功",null);
-//        }else{
-//            return R.fail("修改失败");
-//        }
-//    }
-//
-//    @ApiOperation(value = "查询分页数据")
-//    @ApiImplicitParams({
-//        @ApiImplicitParam(name = "page", value = "页码"),
-//        @ApiImplicitParam(name = "pageCount", value = "每页条数")
-//    })
-//    @GetMapping()
-//    public IPage<Building> findListByPage(@RequestParam Integer page,
-//                                          @RequestParam Integer pageCount){
-//        return buildingService.findListByPage(page, pageCount);
-//    }
-//
-//    @ApiOperation(value = "id查询")
-//    @GetMapping("{id}")
-//    public Building findById(@PathVariable Long id){
-//        return buildingService.findById(id);
-//    }
 
 }

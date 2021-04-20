@@ -22,6 +22,7 @@ import java.util.List;
  */
 @Service
 public class RecordsServiceImpl extends ServiceImpl<RecordsMapper, Records> implements IRecordsService {
+
     @Autowired
     private RecordsMapper recordsDao;
 
@@ -29,8 +30,7 @@ public class RecordsServiceImpl extends ServiceImpl<RecordsMapper, Records> impl
     public PageInfo<RecordVo> findRecordsAll(int page, int limit, RecordVo recordVo) {
         PageHelper.startPage(page,limit);
         List<RecordVo> list=recordsDao.queryRecordsAll(recordVo);
-        PageInfo<RecordVo> pageInfo=new PageInfo<>(list);
-        return pageInfo;
+        return new PageInfo<>(list);
     }
 
     @Override
@@ -42,7 +42,6 @@ public class RecordsServiceImpl extends ServiceImpl<RecordsMapper, Records> impl
     public int add(Records building){
         return baseMapper.insert(building);
     }
-
 
 
     @Override

@@ -35,8 +35,7 @@ public class PropertyInfoServiceImpl extends ServiceImpl<PropertyInfoMapper, Pro
                                                       PropertyInfo propertyInfo) {
         PageHelper.startPage(page,pagesise);
         List<PropertyInfo> list=propertyInfoDao.queryListAll(propertyInfo);
-        PageInfo<PropertyInfo> pageInfo=new PageInfo(list);
-        return pageInfo;
+        return new PageInfo(list);
     }
 
     @Override
