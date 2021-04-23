@@ -98,7 +98,7 @@
                     }
                     ,where: {
                         numbers:numbers.val(),
-                        status:status.val()
+                        status:status.val() //获取到status，o还是1
                     }
                 }, 'data');
             }
@@ -222,9 +222,6 @@
                     document.getElementById("year").innerHTML=date.getFullYear();
                     document.getElementById("month").innerHTML=date.getMonth();
                     document.getElementById("day").innerHTML=date.getDay();
-
-                    // }
-                    // rows[i].cells[j].innerHTML=100;
                 }
             }
             //获取金额
@@ -249,7 +246,7 @@
             }
             return true;
         }
-//打印指定地div 层
+        //打印指定地div层
         function print_(str){
             document.body.innerHTML=document.getElementById(str).innerHTML;
             window.print();
@@ -291,7 +288,7 @@
                     })
                 });
             } else if (obj.event === 'delete') {
-                layer.confirm('真的删除行么', function (index) {
+                layer.confirm('确定是否删除', function (index) {
                     deleteByIds($,"propertyinfo/deleteByIds",data.id,index)
                 });
             }

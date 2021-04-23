@@ -19,7 +19,7 @@ import java.util.List;
 public interface PropertyInfoMapper extends BaseMapper<PropertyInfo> {
 
     /**
-     * 根据登记时间和房子id获取当前记录信息
+     * 根据登记时间和房子id当前记录信息
      */
     void deleteByHouIdAndTime( @Param("houId") Integer houId, @Param("endDate") String onTime);
 

@@ -64,7 +64,7 @@
                 {field: 'remarks', width: 120, title: '投诉内容'},
                 {templet:'<div>{{d.owner.username}}</div>',width: 100, title: '投诉人'},
                 {field: 'comDate', width: 120, title: '投诉时间'},
-                {field: 'status', width: 80, title: '处理状态',
+                {field: 'status', width: 100, title: '处理状态',
                     templet: function(res){
                         if(res.status=='0'){
                             return '<span class="layui-badge layui-bg-red" >待处理</span>';

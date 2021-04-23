@@ -72,12 +72,9 @@ public class PropertyInfoController {
         Userinfo userinfo= (Userinfo) request.getSession().getAttribute("user");
         String username=userinfo.getUsername();
         //根据username获取登录账号得业主id
-         Owner owner=ownerService.queryOwnerByName(username);
-//        Integer userId=owner.getId();
-//        carcharge.setOwnerId(userId);
-          Integer houId= owner.getHouseId();
-          propertyInfo.setHouseId(houId);
-
+        Owner owner=ownerService.queryOwnerByName(username);
+        Integer houId= owner.getHouseId();
+        propertyInfo.setHouseId(houId);
         PageInfo<PropertyInfo> pageInfo=propertyInfoService.findPropertyInfoAll(page,limit,
                 propertyInfo);
         return new JsonObject(0,"ok",pageInfo.getTotal(),pageInfo.getList());
@@ -96,8 +93,8 @@ public class PropertyInfoController {
             double price=type.getPrice();//收费标准
             Integer status= house.getStatus();
             if(status!=null || status!=0){//如果已经收房
-                  //物业费
-              double money=  house.getArea()*price;
+                //物业费
+                double money=  house.getArea()*price;
                 propertyInfo.setMoney(money);
                 propertyInfo.setHouseId(house.getId());
                 propertyInfo.setStatus(0);

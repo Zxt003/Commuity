@@ -106,17 +106,16 @@ public class RecordsController {
         info.setHouseId(houId);
         info.setTypeId(typeId);
         info.setStatus(0);//未缴费
-        if(rec!=null){//如果有上次时间
+        if(rec!=null){
             info.setStartDate(rec.getUpTime());
         }else {
             info.setStartDate(records.getOnTime());
         }
-
         info.setEndDate(records.getOnTime());
 
         //根据类型的id查询类型的费用标准
         PropertyType type=propertyTypeService.findById(new Long(typeId));
-        double  price=type.getPrice();//u获取收费标准
+        double  price=type.getPrice();//获取收费标准
         //获取度数
         double money=(records.getNum2()-records.getNum())*price;
         info.setMoney(money);

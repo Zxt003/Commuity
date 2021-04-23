@@ -42,9 +42,6 @@ public class Parking implements Serializable {
 
     private Owner owner;
 
-
-
-
     public void setId(Integer id) {
         this.id = id;
     }

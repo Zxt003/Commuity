@@ -30,10 +30,8 @@ public class BuildingServiceImpl extends ServiceImpl<BuildingMapper, Building> i
     @Override
     public PageInfo<Building> findBuildAll(int page, int pageSize, String numbers) {
         PageHelper.startPage(page,pageSize);
-        //查询的结果集
         List<Building> list=buildingDao.queryBuildAll(numbers);
-        PageInfo<Building> pageInfo=new PageInfo<>(list);
-        return pageInfo;
+        return new PageInfo<>(list);
     }
 
     @Override
