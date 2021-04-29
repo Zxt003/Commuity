@@ -28,6 +28,7 @@ public class Repair implements Serializable {
     private Owner owner;
     private Repairtype type;
 
+    @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
     private String comId;
