@@ -86,7 +86,7 @@
               "target": "_self"
             },
             {
-              "title": "管理员管理",
+              "title": "用户管理",
               "href": "page/base/admin/index.html",
               "icon": "fa fa-user-circle-o",
               "target": "_self"
