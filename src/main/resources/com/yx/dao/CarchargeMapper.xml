@@ -25,10 +25,10 @@
              <id column="id" property="id"></id>
              <result column="username" property="username"></result>
          </association>
-        <association property="parking" javaType="com.yx.model.Parking">
+         <association property="parking" javaType="com.yx.model.Parking">
             <id column="id" property="id"></id>
             <result column="numbers" property="numbers"></result>
-        </association>
+         </association>
     </resultMap>
 
 

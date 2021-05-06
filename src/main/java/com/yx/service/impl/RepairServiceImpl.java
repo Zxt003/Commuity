@@ -29,8 +29,8 @@ public class RepairServiceImpl extends ServiceImpl<RepairMapper, Repair> impleme
     @Autowired
     private RepairMapper repairDao;
     @Override
-    public PageInfo<Repair> findRepairAll(int page, int pagesise, Repair repair) {
-        PageHelper.startPage(page,pagesise);
+    public PageInfo<Repair> findRepairAll(int page, int pagesize, Repair repair) {
+        PageHelper.startPage(page,pagesize);
         List<Repair> list=repairDao.queryRepairAll(repair);
         PageInfo<Repair> pageInfo=new PageInfo(list);
         return pageInfo;

@@ -67,4 +67,14 @@ public class OwnerServiceImpl extends ServiceImpl<OwnerMapper, Owner> implements
     public Owner findById(Long id){
         return  baseMapper.selectById(id);
     }
+
+    @Override
+    public void deleteOwnerUserByUserName(String username) {
+        ownerDao.deleteOwnerUserByUserName(username);
+    }
+
+    @Override
+    public Owner queryOwnerById(long parseLong) {
+        return ownerDao.queryOwnerById(parseLong);
+    }
 }

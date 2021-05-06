@@ -58,4 +58,8 @@ public interface IOwnerService extends IService<Owner> {
      * @return Owner
      */
     Owner findById(Long id);
+
+    void deleteOwnerUserByUserName(String username);
+
+    Owner queryOwnerById(long parseLong);
 }

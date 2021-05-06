@@ -62,7 +62,6 @@
                 //{field: 'id', width: 80, title: 'ID', sort: true},
                 {templet:'<div>{{d.parking.numbers}}</div>',width: 100, title: '车位号码'},
                 {templet:'<div>{{d.owner.username}}</div>',width: 100, title: '户主'},
-
                 {field: 'payDate', width: 120, title: '开始时间'},
                 {field: 'endDate', width: 120, title: '结束时间'},
                 {field: 'money', width: 100, title: '金额'},
@@ -165,8 +164,6 @@
 
             }
         });
-
-
 
         //监听表格复选框选择
         table.on('checkbox(currentTableFilter)', function (obj) {

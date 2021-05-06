@@ -20,4 +20,8 @@ public interface BuildingMapper extends BaseMapper<Building> {
 
     List<Building> queryBuildAll(@Param("numbers") String numbers);
 
+    /**
+     * 通过house中building_id查找building
+     */
+    Building queryBuildById(@Param("buildId") Integer buildId);
 }

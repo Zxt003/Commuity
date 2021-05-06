@@ -25,4 +25,7 @@
         </where>
     </select>
 
+    <select id="queryBuildById" resultType="com.yx.model.Building" parameterType="Integer">
+        select * from building where id = #{buildId}
+    </select>
 </mapper>

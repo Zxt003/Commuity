@@ -69,4 +69,9 @@ public class UserinfoServiceImpl extends ServiceImpl<UserinfoMapper, Userinfo> i
     public Userinfo queryUserByNameAndPwd(Userinfo userinfo) {
         return userinfoMapper.queryUserByNameAndPwd(userinfo);
     }
+
+    @Override
+    public void deleteUserByUsername(String username) {
+        userinfoMapper.deleteUserByUsername(username);
+    }
 }

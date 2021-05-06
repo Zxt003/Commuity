@@ -85,6 +85,8 @@ public class OwnerController {
         List<String> list= Arrays.asList(ids.split(","));
         //遍历遍历进行删除
         for(String id:list){
+            Owner owner = ownerService.queryOwnerById(Long.parseLong(id));
+            userinfoService.deleteUserByUsername(owner.getUsername());
             ownerService.delete(Long.parseLong(id));
         }
         return R.ok();

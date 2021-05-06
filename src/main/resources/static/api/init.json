@@ -45,6 +45,12 @@
               "href": "page/business/repair/RepairIndex.html",
               "icon": "fa fa-adn",
               "target": "_self"
+            },
+            {
+              "title": "疫情打卡管理",
+              "href": "page/business/clock/ClockInIndex1.html",
+              "icon": "fa fa-check",
+              "target": "_self"
             }
           ]
         },

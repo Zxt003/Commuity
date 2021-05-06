@@ -33,7 +33,7 @@
           SELECT
             own.*, hou.numbers
         FROM
-            `owner` own
+            owner own
         LEFT JOIN house hou ON hou.id = own.house_id
         <where>
              <if test="tel!=null and tel !=''">
@@ -50,6 +50,12 @@
         select * from owner where username=#{username}
     </select>
 
+    <select id="queryOwnerById" parameterType="long" resultType="com.yx.model.Owner">
+        select * from owner where id=#{id}
+    </select>
 
+    <delete id="deleteOwnerUserByUserName" parameterType="String">
+        delete from owner where username=#{username2}
+    </delete>
 
 </mapper>

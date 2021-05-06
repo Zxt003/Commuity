@@ -57,7 +57,7 @@
     <select id="queryTongji" resultType="com.yx.model.Tongji">
        SELECT
             count(info.id) AS counts,
-            type. NAME
+            type.NAME
         FROM
             `repair` info
         LEFT JOIN repairtype type ON type.id = info.com_id

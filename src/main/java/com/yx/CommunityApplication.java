@@ -6,10 +6,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 @MapperScan("com.yx.dao")
-public class PropertySystemApplication {
+public class CommunityApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(PropertySystemApplication.class, args);
+        SpringApplication.run(CommunityApplication.class, args);
     }
 
 }

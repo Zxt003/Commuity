@@ -42,7 +42,7 @@
 
 
     <select id="queryListAll" parameterType="com.yx.model.PropertyInfo" resultMap="queryListAllMap">
-      SELECT
+        SELECT
             info.*, own.username,
             hou.numbers,
             type. NAME

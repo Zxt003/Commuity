@@ -2,6 +2,7 @@ package com.yx.dao;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.yx.model.Userinfo;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -21,4 +22,5 @@ public interface UserinfoMapper extends BaseMapper<Userinfo> {
 
     Userinfo queryUserByNameAndPwd(Userinfo userinfo);
 
+    void deleteUserByUsername(@Param("username2") String username);
 }

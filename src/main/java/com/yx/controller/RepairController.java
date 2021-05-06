@@ -90,19 +90,26 @@ public class RepairController {
     @RequestMapping("/add")
     public R add(@RequestBody Repair repair,HttpServletRequest request)
     {
+        System.out.println("-------111--------");
+        System.out.println(repair);
+        System.out.println("---------------");
         //获取当前得登录用户
         Userinfo userinfo= (Userinfo) request.getSession().getAttribute("user");
         String username=userinfo.getUsername();
+
         //根据username获取登录账号得业主id
         Owner owner=ownerService.queryOwnerByName(username);
         repair.setOwnerId(owner.getId());
         repair.setStatus(0);
         repair.setComDate(new Date());
+        System.out.println("-------222--------");
+        System.out.println(repair);
+        System.out.println("---------------");
         int num=repairService.add(repair);
         if(num>0){
             return  R.ok();
         }
-        return R.fail("失败啦");
+        return R.fail("新增失败");
     }
 
     @ApiOperation(value = "更新")

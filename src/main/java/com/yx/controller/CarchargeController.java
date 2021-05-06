@@ -53,11 +53,11 @@ public class CarchargeController {
     public JsonObject queryCarchargeAll(Carcharge carcharge, String numbers,
                                         @RequestParam(defaultValue = "1") Integer page,
                                         @RequestParam(defaultValue = "15") Integer limit){
-       if(numbers!=null){
+        if(numbers!=null){
            Parking parking=new Parking();
            parking.setNumbers(numbers);
            carcharge.setParking(parking);
-       }
+        }
 
         PageInfo<Carcharge> pageInfo=carchargeService.findCarchargeAll(page,limit,carcharge);
         return new JsonObject(0,"ok",pageInfo.getTotal(),pageInfo.getList());

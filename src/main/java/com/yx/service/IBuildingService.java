@@ -57,4 +57,6 @@ public interface IBuildingService extends IService<Building> {
      * @return Building
      */
     Building findById(Long id);
+
+    Building queryBuildById(Integer buildId);
 }

@@ -59,4 +59,6 @@ public interface IUserinfoService extends IService<Userinfo> {
     Userinfo findById(Long id);
 
     Userinfo queryUserByNameAndPwd(Userinfo userinfo);
+
+    void deleteUserByUsername(String username);
 }

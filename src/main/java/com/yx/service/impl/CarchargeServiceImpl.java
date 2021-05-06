@@ -30,8 +30,8 @@ public class CarchargeServiceImpl extends ServiceImpl<CarchargeMapper, Carcharge
 
 
     @Override
-    public PageInfo<Carcharge> findCarchargeAll(int page, int pagesise, Carcharge carcharge) {
-        PageHelper.startPage(page,pagesise);
+    public PageInfo<Carcharge> findCarchargeAll(int page, int pagesize, Carcharge carcharge) {
+        PageHelper.startPage(page,pagesize);
         List<Carcharge> list=carchargeDao.queryCarChargeAll(carcharge);
         PageInfo<Carcharge> pageInfo=new PageInfo(list);
         return pageInfo;

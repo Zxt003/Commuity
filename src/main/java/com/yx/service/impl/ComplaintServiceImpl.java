@@ -29,8 +29,8 @@ public class ComplaintServiceImpl extends ServiceImpl<ComplaintMapper, Complaint
     private ComplaintMapper complaintDao;
 
     @Override
-    public PageInfo<Complaint> findComplaintAll(int page, int pagesise, Complaint complaint) {
-        PageHelper.startPage(page,pagesise);
+    public PageInfo<Complaint> findComplaintAll(int page, int pagesize, Complaint complaint) {
+        PageHelper.startPage(page,pagesize);
         List<Complaint> list=complaintDao.queryComplaintAll(complaint);
         PageInfo<Complaint> pageInfo=new PageInfo(list);
         return pageInfo;

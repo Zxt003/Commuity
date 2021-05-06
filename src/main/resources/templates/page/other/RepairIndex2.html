@@ -21,7 +21,7 @@
         </div>
 
         <script type="text/html" id="toolbarDemo">
-                <button class="layui-btn layui-btn-sm layui-btn-danger data-delete-btn" lay-event="add"> 我要保修 </button>
+                <button class="layui-btn layui-btn-sm layui-btn-danger data-delete-btn" lay-event="add"> 我要报修 </button>
             </div>
         </script>
 
@@ -36,6 +36,7 @@
             form = layui.form,
             table = layui.table,
             miniPage = layui.miniPage;
+
         table.render({
             elem: '#currentTableId',
             url: 'repair/queryRepairAll2',
@@ -61,7 +62,8 @@
                         }
                     }
                 },
-                {field: 'clr', width: 60, title: '处理人'}
+                {field: 'clr', width: 80, title: '处理人'},
+                {title: '', minWidth: 150, toolbar: '#currentTableBar', align: "center"}
                 ]],
             limits: [10, 15, 20, 25, 50, 100],
             limit: 15,
@@ -113,10 +115,10 @@
          * toolbar事件监听
          */
         table.on('toolbar(currentTableFilter)', function (obj) {
-           if (obj.event === 'add') {  // 监听删除操作
+           if (obj.event === 'add') {  // 监听添加操作
 
                var content = miniPage.getHrefContent('page/other/addRepair.html');
-               var index = openPage(content, "我要保修", '60%', '60%');
+               var index = openPage(content, "我要报修", '60%', '60%');
                $(window).on("resize", function () {
                    layer.full(index);
                });

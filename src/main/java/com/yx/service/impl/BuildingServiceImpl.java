@@ -61,4 +61,9 @@ public class BuildingServiceImpl extends ServiceImpl<BuildingMapper, Building> i
     public Building findById(Long id){
         return  baseMapper.selectById(id);
     }
+
+    @Override
+    public Building queryBuildById(Integer buildId) {
+        return buildingDao.queryBuildById(buildId);
+    }
 }

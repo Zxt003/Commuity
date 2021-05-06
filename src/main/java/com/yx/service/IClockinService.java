@@ -3,43 +3,38 @@ package com.yx.service;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.github.pagehelper.PageInfo;
-import com.yx.model.House;
+import com.yx.model.Clockin;
 
-import java.util.List;
+import java.util.Date;
 
 /**
  * <p>
  *  服务类
  * </p>
  *
- * @author kappy
- * @since 2020-11-08
+ * @author yx
+ * @since 2021-04-27
  */
-public interface IHouseService extends IService<House> {
+public interface IClockinService extends IService<Clockin> {
 
-    /**
-     * 分页查询房屋信息
-     */
-    PageInfo<House> findHouseAll(int page,int pagesize,String numbers);
-
-    List<House> findList();
+    PageInfo<Clockin> queryClockInAll(int pageNum,int pageSize,Clockin clockin);
 
     /**
      * 查询分页数据
      *
      * @param page      页码
      * @param pageCount 每页条数
-     * @return IPage<House>
+     * @return IPage<Clockin>
      */
-    IPage<House> findListByPage(Integer page, Integer pageCount);
+    IPage<Clockin> findListByPage(Integer page, Integer pageCount);
 
     /**
      * 添加
      *
-     * @param house 
+     * @param clockin 
      * @return int
      */
-    int add(House house);
+    int add(Clockin clockin);
 
     /**
      * 删除
@@ -52,18 +47,18 @@ public interface IHouseService extends IService<House> {
     /**
      * 修改
      *
-     * @param house 
+     * @param clockin 
      * @return int
      */
-    int updateData(House house);
+    int updateData(Clockin clockin);
 
     /**
      * id查询数据
      *
      * @param id id
-     * @return House
+     * @return Clockin
      */
-    House findById(Long id);
+    Clockin findById(Long id);
 
-    House queryHouseById(Integer houId);
+    Date queryCountByOwnIdAndTime(Integer ownId);
 }

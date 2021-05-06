@@ -3,6 +3,7 @@ package com.yx.controller;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.github.pagehelper.PageInfo;
 import com.yx.model.Userinfo;
+import com.yx.service.IOwnerService;
 import com.yx.service.IUserinfoService;
 import com.yx.util.JsonObject;
 import com.yx.util.R;
@@ -36,6 +37,9 @@ public class UserinfoController {
     @Resource
     private IUserinfoService userinfoService;
 
+    @Resource
+    private IOwnerService ownerService;
+
     @RequestMapping("/queryUserInfoAll")
     public JsonObject queryUserInfoAll(@RequestParam(defaultValue = "1") Integer page,
                                     @RequestParam(defaultValue = "15") Integer limit,
@@ -55,6 +59,8 @@ public class UserinfoController {
         List<String> list= Arrays.asList(ids.split(","));
         //遍历遍历进行删除
         for(String id:list){
+            Userinfo user = userinfoService.findById(Long.parseLong(id));
+            ownerService.deleteOwnerUserByUserName(user.getUsername());
             userinfoService.delete(Long.parseLong(id));
         }
         return R.ok();

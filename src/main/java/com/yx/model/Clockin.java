@@ -16,36 +16,33 @@ import java.util.Date;
  * 
  * </p>
  *
- * @author kappy
- * @since 2020-10-28
+ * @author yx
+ * @since 2021-04-27
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-@ApiModel(value="Repair对象", description="")
-public class Repair implements Serializable {
+@ApiModel(value="Clockin对象", description="")
+public class Clockin implements Serializable {
 
     private static final long serialVersionUID = 1L;
-
-    private Owner owner;
-    private Repairtype type;
 
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
-    private String comId;
     @JsonFormat(locale="zh", timezone="GMT+8", pattern="yyyy-MM-dd")
-    private Date comDate;
-    @JsonFormat(locale="zh", timezone="GMT+8", pattern="yyyy-MM-dd")
-    private Date handleDate;
+    private Date clockInTime;
 
     private Integer ownerId;
 
-    private Integer status;
+    private Integer houseId;
 
-    private Integer clr;
+    private Integer buildingId;
 
-    private String remarks;
+    private Owner owner;
 
+    private House house;
+
+    private Building building;
 
 }

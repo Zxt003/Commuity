@@ -66,4 +66,9 @@ public class HouseServiceImpl extends ServiceImpl<HouseMapper, House> implements
     public House findById(Long id){
         return  baseMapper.selectById(id);
     }
+
+    @Override
+    public House queryHouseById(Integer houId) {
+        return houseDao.queryHouseById(houId);
+    }
 }

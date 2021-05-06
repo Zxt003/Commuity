@@ -28,4 +28,7 @@
         </where>
     </select>
 
+    <select id="queryHouseById" resultType="com.yx.model.House" parameterType="Integer">
+        select * from house where id = #{houId}
+    </select>
 </mapper>

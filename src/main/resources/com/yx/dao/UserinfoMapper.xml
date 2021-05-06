@@ -31,4 +31,8 @@
         select * from userinfo u  where username=#{username} and u.password=#{password}
         and  type=#{type}
     </select>
+
+    <delete id="deleteUserByUsername" parameterType="String">
+        delete from userinfo where username=#{username2}
+    </delete>
 </mapper>

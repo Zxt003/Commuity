@@ -59,6 +59,7 @@
         form.on('submit(saveBtn)', function (data) {
             //获取表单中的数据信息
             var datas=data.field;
+            console.log(datas);
             addOrUpdateSubmit($,"repair/add",datas);
             return false;
         });
