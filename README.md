@@ -4,6 +4,8 @@
 由于gitee上传图片不能超过2M大小，所以演示见我的博客，链接如下。
 https://blog.csdn.net/weixin_39615182/article/details/115772815
 
+==注意==：项目已经完结！！！比较简单，没有去弄安全框架，所有功能都测试正常，有兴趣自己拿去玩一玩，加加功能也行
+
 ## 数据库
 现将数据库也开源分享：链接：https://pan.baidu.com/s/11hMguK7ospm3XOMyyOs_sw 
 提取码：dk16 
