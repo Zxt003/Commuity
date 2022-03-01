@@ -57,26 +57,7 @@
         form.on('submit(saveBtn)', function (data) {
             //获取表单中的数据信息
             var datas=data.field;
-            console.log(datas)
-            $.ajax({
-                url:"notice/add",
-                type:"POST",
-                data:datas,
-                success:function(result){
-                    if(result.code==0){//如果成功
-                        layer.msg('添加成功',{
-                            icon:6,
-                            time:500
-                        },function(){
-                            parent.window.location.reload();
-                            var iframeIndex = parent.layer.getFrameIndex(window.name);
-                            parent.layer.close(iframeIndex);
-                        })
-                    }else{
-                        layer.msg("添加失败");
-                    }
-                }
-            })
+            addOrUpdateSubmit($,"notice/add",datas);
             return false;
         });
 
