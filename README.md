@@ -8,8 +8,8 @@ https://blog.csdn.net/weixin_39615182/article/details/115772815
 （万一你要作为课程设计或者毕设，不太会配，可以到下面我博客中私信，我帮你远程部署，但收费）
 
 ## 数据库
-现将数据库也开源分享：链接：https://pan.baidu.com/s/11hMguK7ospm3XOMyyOs_sw 
-提取码：dk16 
+链接：https://pan.baidu.com/s/1xH8Fa2Qg5tw1ggkuPw7TiA 
+提取码：ccwn
 
 有啥问题可以博客私信问下，看到就会回你
 
